@@ -1,12 +1,13 @@
 import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 1.4
+
 //https://doc.qt.io/qt-5/qml-qtqml-date.html
 Window
 {
     id: mainWindow
-    width: 640
-    height: 480
+    width: 100
+    height: 75
     visible: true
     title: qsTr("QML Clock")
 
