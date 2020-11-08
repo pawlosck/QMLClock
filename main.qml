@@ -38,6 +38,19 @@ Window
             }
         }
 
+        onPositionChanged:
+        {
+            if (mouse.buttons == Qt.LeftButton)
+            {
+                console.log("Mouse: X:Y: " + mouseX + ":" + mouseY)
+                console.log("Window: X:Y: " + mainWindow.x + ":" + mainWindow.y)
+                console.log(mapToGlobal(mouseX, mouseY))
+
+                var windowGeometry = mapToGlobal(mouseX, mouseY)
+                mainWindow.setGeometry(windowGeometry.x, windowGeometry.y , mainWindow.width, mainWindow.height)
+            }
+        }
+
         Menu
         {
             id: menu
