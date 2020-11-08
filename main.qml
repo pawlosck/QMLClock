@@ -13,74 +13,6 @@ Window
 
     property bool onlyTime: false
 
-    onWidthChanged:
-    {
-        if (onlyTime == false)
-        {
-            //Pokazuje czas i date
-            timeLabel.width = width
-            dateLabel.width = timeLabel.width
-
-            timeLabel.x = 0
-            dateLabel.x = 0
-
-            timeLabel.horizontalAlignment = Text.AlignHCenter
-            timeLabel.verticalAlignment = Text.AlignVCenter
-
-            dateLabel.horizontalAlignment = Text.AlignHCenter
-            dateLabel.verticalAlignment = Text.AlignVCenter
-        }
-        else
-        {
-            //Pokazuje tylko czas
-            timeLabel.width = width
-            dateLabel.width = timeLabel.width
-            timeLabel.x = 0
-            dateLabel.x = 0
-
-            timeLabel.horizontalAlignment = Text.AlignHCenter
-            timeLabel.verticalAlignment = Text.AlignVCenter
-
-            dateLabel.horizontalAlignment = Text.AlignHCenter
-            dateLabel.verticalAlignment = Text.AlignVCenter
-        }
-    }
-
-
-    onHeightChanged:
-    {
-        if (onlyTime == false)
-        {
-            //Pokazuje czas i date
-            timeLabel.height = height/2
-            dateLabel.height = timeLabel.height
-
-            timeLabel.y = 0
-//            dateLabel.y = y/2
-
-            timeLabel.horizontalAlignment = Text.AlignHCenter
-            timeLabel.verticalAlignment = Text.AlignVCenter
-
-            dateLabel.horizontalAlignment = Text.AlignHCenter
-            dateLabel.verticalAlignment = Text.AlignVCenter
-        }
-        else
-        {
-            //Pokazuje tylko czas
-            timeLabel.height = height
-//            dateLabel.height = timeLabel.height
-
-            timeLabel.y = 0
-//            dateLabel.y = y/2
-
-            timeLabel.horizontalAlignment = Text.AlignHCenter
-            timeLabel.verticalAlignment = Text.AlignVCenter
-
-//            dateLabel.horizontalAlignment = Text.AlignHCenter
-//            dateLabel.verticalAlignment = Text.AlignVCenter
-        }
-    }
-
     property string czas_string: "Godzina"
     property string data_string: "Data"
 
@@ -165,11 +97,9 @@ Window
                         text = "Data"
 
                         dateLabel.visible = true
-                        timeLabel.width = mainWindow.width
-                        timeLabel.height = mainWindow.height/2
 
-//                        mainWindow.width = timeLabel.width
-//                        mainWindow.height = timeLabel.height
+                        timeLabel.width = Qt.binding(() => mainWindow.width);
+                        timeLabel.height = Qt.binding(() => mainWindow.height/2);
 
                         onlyTime = false
                     }
@@ -178,11 +108,8 @@ Window
                         text = "Data"
 
                         dateLabel.visible = false
-                        timeLabel.width = mainWindow.width
-                        timeLabel.height = mainWindow.height
-
-//                        mainWindow.width = timeLabel.width
-//                        mainWindow.height = timeLabel.height
+                        timeLabel.width = Qt.binding(() => mainWindow.width);
+                        timeLabel.height = Qt.binding(() => mainWindow.height);
 
                         onlyTime = true
                     }
