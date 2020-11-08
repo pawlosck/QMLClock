@@ -174,7 +174,7 @@ Window
     {
         var data = new Date;
 
-        czas_string = data.toLocaleString(Qt.locale("pl_PL"), "h:mm:ss");
+        czas_string = data.toLocaleString(Qt.locale("pl_PL"), "h:mm");
         data_string = data.toLocaleString(Qt.locale("pl_PL"), "yyyy-MM-dd\ndddd");
     }
     Timer
