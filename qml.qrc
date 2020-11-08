@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>input.qml</file>
+        <file>settings.qml</file>
     </qresource>
 </RCC>
