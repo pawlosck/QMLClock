@@ -16,6 +16,8 @@ Window
     property string czas_string: "Godzina"
     property string data_string: "Data"
 
+    color: "yellow"
+
     MouseArea
     {
         anchors.fill: parent
