@@ -51,6 +51,37 @@ Window
             }
         }
 
+        onWheel:
+        {
+
+            if (wheel.angleDelta.y > 0)
+            {
+                if(wheel.modifiers === Qt.ControlModifier )
+                {
+                    console.log("+")
+                    mainWindow.setWidth(mainWindow.width+1)
+                }
+                else
+                {
+                    console.log("+")
+                    mainWindow.setHeight(mainWindow.height+1)
+                }
+            }
+            else if (wheel.angleDelta.y < 0)
+            {
+                if(wheel.modifiers === Qt.ControlModifier )
+                {
+                    console.log("-")
+                    mainWindow.setWidth(mainWindow.width-1)
+                }
+                else
+                {
+                    console.log("-")
+                    mainWindow.setHeight(mainWindow.height-1)
+                }
+            }
+        }
+
         Menu
         {
             id: menu
@@ -101,7 +132,7 @@ Window
                 checkable: true
                 checked: true
                 text: "Data"
-//                shortcut: "Ctrl+D"
+                shortcut: "Ctrl+D"
 
                 onTriggered:
                 {
