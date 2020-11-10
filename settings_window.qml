@@ -5,7 +5,6 @@ import Qt.labs.settings 1.0
 
 Window
 {
-//    id: settings_window
     width: 250
     height: 250
 
@@ -34,15 +33,7 @@ Window
 
         function getValue(key)
         {
-//            var value_to_return
             var value_to_return = settings.value(key)
             return value_to_return
         }
-
-//        function getTimeOnly()
-//        {
-//            Boolean value_to_return = settings.value("timeOnly")
-//            return value_to_return
-//        }
-
 }
