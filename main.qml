@@ -9,8 +9,12 @@ ApplicationWindow
     visible: true
     title: qsTr("QML Clock")
 
+    property string title_string: "QML Clock"
+
     property string czas_string: "Hour"
     property string data_string: "Date"
+
+    property int titleLastUsedTimeOrDate: 0
 
     property var component: Qt.createComponent("settings_window.qml")
     property var window_settings: component.createObject(mainWindow)
@@ -325,6 +329,25 @@ ApplicationWindow
         czas_string = data.toLocaleString(Qt.locale("pl_PL"), "h:mm");
         data_string = data.toLocaleString(Qt.locale("pl_PL"), "yyyy-MM-dd\ndddd");
 
+        var title_czas_string = data.toLocaleString(Qt.locale("pl_PL"), "h:mm:ss");
+        var title_data_string = data.toLocaleString(Qt.locale("pl_PL"), "yyyy-MM-dd");
+        var title_day_name_string = data.toLocaleString(Qt.locale("pl_PL"), "dddd");
+
+        var seconds_string = data.toLocaleString(Qt.locale("pl_PL"), "s");
+
+        var textTimeAndDate = [title_czas_string, title_data_string, title_day_name_string];
+        var resultOfMod = seconds_string % 4;
+
+        title = title_string + " -> " + textTimeAndDate[titleLastUsedTimeOrDate];
+
+        if (resultOfMod === 0)
+        {
+            titleLastUsedTimeOrDate = titleLastUsedTimeOrDate + 1
+            if (titleLastUsedTimeOrDate > 2)
+            {
+                titleLastUsedTimeOrDate = 0
+            }
+        }
 
         console.log("timeOnly: " + timeOnly)
         console.log("border_option: " + border_option)
