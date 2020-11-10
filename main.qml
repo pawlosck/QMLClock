@@ -19,8 +19,6 @@ ApplicationWindow
     property string border_option: window_settings.getValue("border")
     property string onTop_option: window_settings.getValue("onTop")
 
-    color: window_settings.getValue("background_color")
-
     Component.onCompleted:
     {
         //aplikacja uruchomiona
@@ -29,6 +27,10 @@ ApplicationWindow
         timeOnly = window_settings.getValue("timeOnly")
         border_option = window_settings.getValue("border")
         onTop_option = window_settings.getValue("onTop")
+
+        color = window_settings.getValue("background_color")
+        timeLabel.color = window_settings.getValue("font_color")
+        dateLabel.color = window_settings.getValue("font_color")
 
         console.log("timeOnly: " + timeOnly)
 
@@ -220,6 +222,30 @@ ApplicationWindow
                 }
             }
         }
+        MenuItem
+        {
+            id: settings_background_color
+            checkable: false
+            text: "Background color"
+            shortcut: "Ctrl+C"
+            onTriggered:
+            {
+                window_settings.openColorDialogBackground()
+            }
+        }
+
+        MenuItem
+        {
+            id: settings_font_color
+            checkable: false
+            text: "Font color"
+            shortcut: "Ctrl+F"
+            onTriggered:
+            {
+                window_settings.openColorDialogFont()
+            }
+        }
+
         MenuSeparator { }
         MenuItem
         {
