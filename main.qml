@@ -3,20 +3,234 @@ import QtQuick.Window 2.15
 import QtQuick.Controls 1.4
 
 //https://doc.qt.io/qt-5/qml-qtqml-date.html
-Window
+ApplicationWindow
 {
     id: mainWindow
-    width: 100
-    height: 75
     visible: true
     title: qsTr("QML Clock")
 
-    property bool onlyTime: false
+    property string czas_string: "Hour"
+    property string data_string: "Date"
 
-    property string czas_string: "Godzina"
-    property string data_string: "Data"
+    property var component: Qt.createComponent("settings_window.qml")
+    property var window_settings: component.createObject(mainWindow)
 
-    color: "yellow"
+    property string timeOnly: window_settings.getValue("timeOnly")
+    property string border_option: window_settings.getValue("border")
+    property string onTop_option: window_settings.getValue("onTop")
+
+    color: window_settings.getValue("background_color")
+
+    Component.onCompleted:
+    {
+        //aplikacja uruchomiona
+        console.log("Aplikacja uruchomiona")
+
+        timeOnly = window_settings.getValue("timeOnly")
+        border_option = window_settings.getValue("border")
+        onTop_option = window_settings.getValue("onTop")
+
+        console.log("timeOnly: " + timeOnly)
+
+        if (timeOnly === "true")
+        {
+            console.log("timeOnly true: " + timeOnly)
+            setMenuTimeOnly()
+            menu.items[3].checked = false
+            timeOnly = true
+        }
+        else
+        {
+            console.log("timeOnly false: " + timeOnly)
+            setMenuTimeAndDate()
+            menu.items[3].checked = true
+            timeOnly = false
+        }
+
+        if (border_option === "on")
+        {
+            flags = flags & ~Qt.FramelessWindowHint
+            menu.items[0].checked = true
+            border_option = "on"
+
+            width = window_settings.getValue("width")
+            height = window_settings.getValue("height")
+
+            x = window_settings.getValue("posX")
+            y = window_settings.getValue("posY")
+        }
+        else
+        {
+            flags = flags | Qt.FramelessWindowHint
+            menu.items[0].checked = false
+            border_option = "off"
+
+            width = window_settings.getValue("width")
+            height = window_settings.getValue("height")
+
+            x = window_settings.getValue("posX")
+            y = window_settings.getValue("posY")
+        }
+
+        if (onTop_option === "true")
+        {
+
+            menu.items[1].checked = true
+            flags = flags | Qt.WindowStaysOnTopHint
+            onTop_option = true
+        }
+        else
+        {
+            menu.items[1].checked = false
+            flags = flags & ~Qt.WindowStaysOnTopHint
+            onTop_option = false
+        }
+    }
+
+    function setMenuTimeOnly()
+    {
+        //Pokazuje tylko czas
+        dateLabel.visible = false
+
+        timeLabel.width = Qt.binding(() => mainWindow.width);
+        timeLabel.height = Qt.binding(() => mainWindow.height);
+    }
+
+    function setMenuTimeAndDate()
+    {
+        dateLabel.visible = true
+
+        timeLabel.width = Qt.binding(() => mainWindow.width);
+        timeLabel.height = Qt.binding(() => mainWindow.height/2);
+    }
+
+    function closeApp()
+    {
+        console.log("Zamykam aplikacje")
+        window_settings.setValue("posX", x)
+        window_settings.setValue("posY", y)
+
+        window_settings.setValue("width", width)
+        window_settings.setValue("height", height)
+
+        window_settings.setValue("timeOnly", timeOnly)
+        window_settings.setValue("border", border_option)
+        window_settings.setValue("onTop", onTop_option)
+
+        console.log("timeOnly: " + timeOnly)
+
+        Qt.quit()
+    }
+
+    onClosing:
+    {
+        closeApp()
+    }
+
+    Menu
+    {
+        id: menu
+        MenuItem
+        {
+            id: border
+            checkable: true
+            checked: true
+            text: qsTr("Obramowanie")
+            shortcut: "Ctrl+B"
+            onTriggered:
+            {
+                if (border_option === "off")
+                {
+                    flags = flags & ~Qt.FramelessWindowHint
+                    border_option = "on"
+                }
+                else
+                {
+                    flags = flags | Qt.FramelessWindowHint
+
+                    border_option = "off"
+                }
+            }
+        }
+        MenuItem
+        {
+            id: onTop
+            checkable: true
+            checked: false
+            text: "Zawsze na wierzchu"
+            shortcut: "Ctrl+T"
+            onTriggered:
+            {
+                if(onTop_option === "false" )
+                {
+                    flags = flags | Qt.WindowStaysOnTopHint
+                    checked = true
+                    onTop_option = true
+                }
+                else
+                {
+                    flags = flags & ~Qt.WindowStaysOnTopHint
+                    checked = false
+                    onTop_option = false
+                }
+            }
+        }
+        MenuSeparator { }
+        MenuItem
+        {
+            id: date
+            checkable: true
+            checked: false
+            text: "Data"
+            shortcut: "Ctrl+D"
+
+            onTriggered:
+            {
+                console.log("timeOnly: " + timeOnly)
+                if (timeOnly === "true")
+                {
+                    mainWindow.setMenuTimeAndDate()
+                    checked = true
+                    timeOnly = false
+                }
+                else
+                {
+                    mainWindow.setMenuTimeOnly()
+                    checked = false
+                    timeOnly = true
+                }
+            }
+        }
+        MenuItem
+        {
+            id: settings
+            checkable: false
+            text: "Settings"
+            shortcut: "Ctrl+S"
+            onTriggered:
+            {
+                if (window_settings === null)
+                {
+                    // Error Handling
+                    console.log("Error creating object");
+                }
+                else
+                {
+                    window_settings.show()
+                }
+            }
+        }
+        MenuSeparator { }
+        MenuItem
+        {
+            text: "Zamknij progrm"
+            shortcut: "Ctrl+Q"
+            onTriggered:
+            {
+                mainWindow.closeApp()
+            }
+        }
+    }
 
     MouseArea
     {
@@ -28,15 +242,12 @@ Window
             if (mouse.button == Qt.RightButton)
             {
                 menu.popup()
-//                console.log("Prawy")
             }
             else if (mouse.button == Qt.LeftButton)
             {
-//                console.log("Lewy")
             }
             else
             {
-//                console.log("Inny")
             }
         }
 
@@ -60,12 +271,10 @@ Window
             {
                 if(wheel.modifiers === Qt.ControlModifier )
                 {
-                    console.log("+")
                     mainWindow.setWidth(mainWindow.width+1)
                 }
                 else
                 {
-                    console.log("+")
                     mainWindow.setHeight(mainWindow.height+1)
                 }
             }
@@ -73,102 +282,15 @@ Window
             {
                 if(wheel.modifiers === Qt.ControlModifier )
                 {
-                    console.log("-")
                     mainWindow.setWidth(mainWindow.width-1)
                 }
                 else
                 {
-                    console.log("-")
                     mainWindow.setHeight(mainWindow.height-1)
                 }
             }
         }
 
-        Menu
-        {
-            id: menu
-            MenuItem
-            {
-                checkable: true
-                checked: true
-                text: qsTr("Obramowanie")
-                shortcut: "Ctrl+B"
-                onTriggered:
-                {
-                    if (checked == true)
-                    {
-                        flags = flags & ~Qt.FramelessWindowHint
-                        text = "Obramowanie"
-                    }
-                    else
-                    {
-                        flags = flags | Qt.FramelessWindowHint
-                        text = "Obramowanie"
-                    }
-                }
-            }
-            MenuItem
-            {
-                id: naWierzchu
-                checkable: true
-                checked: false
-                text: "Zawsze na wierzchu"
-                shortcut: "Ctrl+T"
-                onTriggered:
-                {
-                    if (checked == true)
-                    {
-                        flags = flags | Qt.WindowStaysOnTopHint
-                        text = "Zawsze na wierzchu"
-                    }
-                    else
-                    {
-                        flags = flags & ~Qt.WindowStaysOnTopHint
-                        text = "Zawsze na wierzchu"
-                    }
-                }
-            }
-            MenuSeparator { }
-            MenuItem
-            {
-                checkable: true
-                checked: true
-                text: "Data"
-                shortcut: "Ctrl+D"
-
-                onTriggered:
-                {
-                    if (checked == true)
-                    {
-                        text = "Data"
-
-                        dateLabel.visible = true
-
-                        timeLabel.width = Qt.binding(() => mainWindow.width);
-                        timeLabel.height = Qt.binding(() => mainWindow.height/2);
-
-                        onlyTime = false
-                    }
-                    else
-                    {
-                        text = "Data"
-
-                        dateLabel.visible = false
-                        timeLabel.width = Qt.binding(() => mainWindow.width);
-                        timeLabel.height = Qt.binding(() => mainWindow.height);
-
-                        onlyTime = true
-                    }
-                }
-            }
-            MenuSeparator { }
-            MenuItem
-            {
-                text: "Zamknij progrm"
-                shortcut: "Ctrl+Q"
-                onTriggered: Qt.quit()
-            }
-        }
     }
     function timeChanged()
     {
@@ -176,6 +298,11 @@ Window
 
         czas_string = data.toLocaleString(Qt.locale("pl_PL"), "h:mm");
         data_string = data.toLocaleString(Qt.locale("pl_PL"), "yyyy-MM-dd\ndddd");
+
+
+        console.log("timeOnly: " + timeOnly)
+        console.log("border_option: " + border_option)
+        console.log("onTop_option: " + onTop_option)
     }
     Timer
     {
@@ -196,7 +323,6 @@ Window
         font.pointSize: 400
         minimumPointSize: 8
         fontSizeMode: Text.Fit
-//        anchors.fill: parent
     }
     Text
     {
@@ -211,6 +337,5 @@ Window
         font.pointSize: 400
         minimumPointSize: 8
         fontSizeMode: Text.Fit
-//        anchors.fill: parent
     }
 }
