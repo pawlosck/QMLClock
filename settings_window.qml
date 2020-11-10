@@ -6,13 +6,62 @@ import Qt.labs.settings 1.0
 //import QtQml.Models 2.15
 //import QtQuick.Controls.Styles 1.4
 import QtQuick 2.12
-//import QtQuick.Controls 2.12
+import QtQuick.Controls 2.15
 import QtQuick.Dialogs 1.0
+import QtQuick.Layouts 1.11
 
 Window
 {
+    id: settings_window
     width: 250
     height: 250
+
+    GridLayout
+    {
+//        rows: 2
+        columns: 2
+        id: rowLayout2
+        x: 0
+        y: 0
+        width: parent.width
+        height: parent.height
+
+
+        Button
+        {
+            id: buttonChangeBackgroundColor
+            text: "Background color"
+            palette.buttonText: getValue("font_color")
+            Layout.alignment: Qt.AlignRight
+            background: Rectangle
+            {
+                color: getValue("background_color")
+                border.width: 1
+            }
+            onClicked:
+            {
+                openColorDialogBackground()
+            }
+        }
+
+        Button
+        {
+            id: buttonChangeFontColor
+            text: "Font color"
+            palette.buttonText: getValue("font_color")
+            Layout.alignment: Qt.AlignLeft
+            background: Rectangle
+            {
+                color: getValue("background_color")
+                border.width: 1
+            }
+
+            onClicked:
+            {
+                openColorDialogFont()
+            }
+        }
+    }
 
     ColorDialog
     {
@@ -62,16 +111,18 @@ Window
         property var border: "on"
         property var onTop: true
 
+     }
+
+
+
+    function setValue(key, value)
+    {
+        settings.setValue(key, value);
     }
 
-        function setValue(key, value)
-        {
-            settings.setValue(key, value);
-        }
-
-        function getValue(key)
-        {
-            var value_to_return = settings.value(key)
-            return value_to_return
-        }
+    function getValue(key)
+    {
+        var value_to_return = settings.value(key)
+        return value_to_return
+    }
 }
