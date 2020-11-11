@@ -16,6 +16,7 @@ Window
     height: 250
 
     signal signal_background_color_changed(string color)
+    signal signal_font_color_changed(string color)
 
     onSignal_background_color_changed:
     {
@@ -23,6 +24,14 @@ Window
         settings.background_color = color
         buttonChangeBackgroundColor.background.color = color
         buttonChangeFontColor.background.color = color
+    }
+
+    onSignal_font_color_changed:
+    {
+        settings.setValue("font_color", color)
+        settings.font_color = color
+        buttonChangeBackgroundColor.palette.buttonText = color
+        buttonChangeFontColor.palette.buttonText = color
     }
 
     GridLayout
@@ -88,7 +97,8 @@ Window
         title: "Please choose a font color"
         onAccepted:
         {
-            setValue("font_color", colorDialogFont.color)
+//            setValue("font_color", colorDialogFont.color)
+            signal_font_color_changed(colorDialogFont.color)
         }
     }
 

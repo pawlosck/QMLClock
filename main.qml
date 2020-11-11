@@ -29,7 +29,16 @@ ApplicationWindow
         function onSignal_background_color_changed(color_value)
         {
             color = color_value
-            console.log("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
+        }
+    }
+
+    Connections
+    {
+        target: window_settings
+        function onSignal_font_color_changed(color_value)
+        {
+            timeLabel.color = color_value
+            dateLabel.color = color_value
         }
     }
 
