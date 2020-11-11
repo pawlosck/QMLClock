@@ -12,15 +12,13 @@ import QtQuick.Layouts 1.11
 
 Window
 {
-    id: settings_window
     width: 250
     height: 250
 
     GridLayout
     {
-//        rows: 2
         columns: 2
-        id: rowLayout2
+        id: gridLayout
         x: 0
         y: 0
         width: parent.width
