@@ -15,6 +15,16 @@ Window
     width: 250
     height: 250
 
+    signal signal_background_color_changed(string color)
+
+    onSignal_background_color_changed:
+    {
+        settings.setValue("background_color", color)
+        settings.background_color = color
+        buttonChangeBackgroundColor.background.color = color
+        buttonChangeFontColor.background.color = color
+    }
+
     GridLayout
     {
         columns: 2
@@ -67,7 +77,8 @@ Window
         title: "Please choose a background color"
         onAccepted:
         {
-            setValue("background_color", colorDialogBackground.color)
+//            setValue("background_color", colorDialogBackground.color)
+            signal_background_color_changed(colorDialogBackground.color)
         }
     }
 

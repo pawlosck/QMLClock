@@ -23,6 +23,16 @@ ApplicationWindow
     property string border_option: window_settings.getValue("border")
     property string onTop_option: window_settings.getValue("onTop")
 
+    Connections
+    {
+        target: window_settings
+        function onSignal_background_color_changed(color_value)
+        {
+            color = color_value
+            console.log("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
+        }
+    }
+
     Component.onCompleted:
     {
         //aplikacja uruchomiona
