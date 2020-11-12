@@ -1,4 +1,3 @@
-//import QtQuick 2.0
 import QtQuick.Window 2.15
 import Qt.labs.settings 1.0
 //import QtQuick.Controls 1.4
@@ -10,6 +9,7 @@ import QtQuick.Controls 2.15
 import QtQuick.Dialogs 1.0
 import QtQuick.Layouts 1.11
 import QtQuick.Controls.Styles 1.4
+import QtQml 2.12
 
 Window
 {
@@ -90,6 +90,88 @@ Window
             {
                 openColorDialogFont()
             }
+        }
+    }
+
+    RowLayout
+    {
+        anchors.top: layoutButtons.bottom
+        id: layoutMix
+        Text
+        {
+            id: labelLocale
+            text: qsTr("Choose language: ")
+
+            Layout.preferredWidth: 150
+            Layout.fillWidth: false
+            Layout.alignment: Qt.AlignVCenter
+            Layout.topMargin: 5
+        }
+        ComboBox
+        {
+            id: comboboxLocale
+//            Layout.preferredWidth: 150
+            Layout.fillWidth: false
+            Layout.alignment: Qt.AlignVCenter
+            Layout.topMargin: 5
+//            Layout.minimumHeight: labelLocale.
+//            Layout.maximumHeight: 10
+            Layout.preferredHeight: labelLocale.height+5
+            Layout.preferredWidth: labelLocale.width
+
+            editable: false
+
+            background: Rectangle
+            {
+//                radius: 20
+                color: "grey"
+            }
+            model: [ "Banana", "Apple", "Coconut" ]
+        }
+
+        CheckBox
+        {
+            id: checkboxChooseLanguageManually
+            checked: false
+            text: "Choose language manually"
+
+//            Layout.fillWidth: false
+            Layout.alignment: Qt.AlignVCenter
+            Layout.topMargin: 5
+
+            Layout.preferredHeight: labelLocale.height+5
+            Layout.preferredWidth: labelLocale.width
+
+            indicator: Rectangle
+            {
+                implicitWidth: 20
+                implicitHeight: 20
+                x: checkboxChooseLanguageManually.leftPadding
+                y: parent.height / 2 - height / 2
+                border.color: checkboxChooseLanguageManually.down ? "#dark" : "#grey"
+
+                Rectangle
+                {
+                    width: 20
+                    height: 20
+                    x: 0
+                    y: 0
+                    color: checkboxChooseLanguageManually.down ? "#dark" : "#grey"
+                    visible: checkboxChooseLanguageManually.checked
+                }
+            }
+            onClicked:
+            {
+                if (checkboxChooseLanguageManually.checked === true)
+                {
+                    comboboxLocale.editable = true
+                }
+                else
+                {
+                    comboboxLocale.editable = false
+                }
+            }
+
         }
     }
 
