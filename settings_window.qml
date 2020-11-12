@@ -9,10 +9,11 @@ import QtQuick 2.12
 import QtQuick.Controls 2.15
 import QtQuick.Dialogs 1.0
 import QtQuick.Layouts 1.11
+import QtQuick.Controls.Styles 1.4
 
 Window
 {
-    width: 250
+    width: 600
     height: 250
 
     signal signal_background_color_changed(string color)
@@ -37,11 +38,12 @@ Window
     GridLayout
     {
         columns: 2
-        id: gridLayout
+        id: layoutButtons
         x: 0
         y: 0
         width: parent.width
-        height: parent.height
+//        height: parent.height
+//        anchors.bottom: layoutMix.top
 
 
         Button
@@ -49,7 +51,13 @@ Window
             id: buttonChangeBackgroundColor
             text: "Background color"
             palette.buttonText: getValue("font_color")
-            Layout.alignment: Qt.AlignRight
+
+            Layout.preferredWidth: 150
+            implicitWidth: 300
+            Layout.fillWidth: true
+            Layout.alignment: Qt.AlignTop
+            Layout.topMargin: 5
+
             background: Rectangle
             {
                 color: getValue("background_color")
@@ -63,10 +71,15 @@ Window
 
         Button
         {
+
             id: buttonChangeFontColor
             text: "Font color"
             palette.buttonText: getValue("font_color")
-            Layout.alignment: Qt.AlignLeft
+            Layout.preferredWidth: 150
+            Layout.fillWidth: true
+            Layout.alignment: Qt.AlignTop
+            Layout.topMargin: 5
+
             background: Rectangle
             {
                 color: getValue("background_color")
