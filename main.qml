@@ -3,6 +3,7 @@ import QtQuick.Window 2.15
 import QtQuick.Controls 1.4
 
 //https://doc.qt.io/qt-5/qml-qtqml-date.html
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply
 ApplicationWindow
 {
     id: mainWindow
@@ -268,6 +269,35 @@ ApplicationWindow
                 window_settings.openColorDialogFont()
             }
         }
+
+        Menu
+        {
+            id: submenuAlarms
+            title: "Alarms"
+
+            function createMenuItemDefault()
+            {
+                var defaultAlarms = ["30s", "1m", "3m", "5m", "10m", "20m", "30m", "1h"];
+                var numberOfAlarms = defaultAlarms.length
+                var alarmsItems = [numberOfAlarms];
+                var index = 0
+                for (var alarm of defaultAlarms)
+                {
+                    console.log(alarm)
+                    var item = submenuAlarms.addItem(alarm)
+                    item.id = "ID_"+alarm
+                    item.triggered.connect(function(){console.log("Value: " + alarmsItems[__selectedIndex])})
+                    alarmsItems[index] = item.text
+                    index++
+                }
+                return alarmsItems
+            }
+
+            Component.onCompleted:
+            {
+                createMenuItemDefault()
+            }
+    }
 
         MenuSeparator { }
         MenuItem
