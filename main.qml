@@ -12,8 +12,9 @@ ApplicationWindow
     title: qsTr("QML Clock")
 
     property var component_alarm: Qt.createComponent("alarm.qml")
-    property var alarm_object: component_alarm.createObject()
+//    property var alarm_object: component_alarm.createObject()
 
+    property var list_of_alarms: []
 
     property string title_string: "QML Clock"
 
@@ -47,6 +48,9 @@ ApplicationWindow
             value_timer = 60*60*value
         }
 
+        var alarm_object = component_alarm.createObject()
+
+        list_of_alarms.push(alarm_object)
         console.log("value_timer: " + value_timer)
         alarm_object.runAlarm(value_timer, "type", "message")
     }
