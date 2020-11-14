@@ -4,6 +4,7 @@ import QtQuick.Controls 1.4
 
 //https://doc.qt.io/qt-5/qml-qtqml-date.html
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply
+//https://stackoverflow.com/questions/45104651/qml-dynamically-create-timers-when-event-occurs
 ApplicationWindow
 {
     id: mainWindow
@@ -24,6 +25,26 @@ ApplicationWindow
     property string border_option: window_settings.getValue("border")
     property string onTop_option: window_settings.getValue("onTop")
 
+    signal signal_alarm_started(string value, string unit)
+
+    onSignal_alarm_started:
+    {
+        if(unit === "s")
+        {
+            timer_alarm_ID.valueInterval = 1000*value
+        }
+        else if(unit === "m")
+        {
+            timer_alarm_ID.valueInterval = 1000*60*value
+        }
+        else if(unit === "h")
+        {
+            timer_alarm_ID.valueInterval = 1000*60*60*value
+        }
+
+        timer_alarm_ID.start()
+    }
+
     Connections
     {
         target: window_settings
@@ -31,6 +52,14 @@ ApplicationWindow
         {
             color = color_value
         }
+    }
+
+    Timer
+    {
+        id: timer_alarm_ID
+        property var valueInterval: 1000
+        interval: valueInterval; running: false; repeat: false
+        onTriggered: mainWindow.title = "WWWWWWWWWWWWWW"
     }
 
     Connections
@@ -275,9 +304,15 @@ ApplicationWindow
             id: submenuAlarms
             title: "Alarms"
 
+            Component.onCompleted:
+            {
+                createMenuItemDefault()
+
+            }
+
             function createMenuItemDefault()
             {
-                var defaultAlarms = ["30s", "1m", "3m", "5m", "10m", "20m", "30m", "1h"];
+                var defaultAlarms = ["5s", "30s", "1m", "3m", "5m", "10m", "20m", "30m", "1h"];
                 var numberOfAlarms = defaultAlarms.length
                 var alarmsItems = [numberOfAlarms];
                 var index = 0
@@ -286,18 +321,37 @@ ApplicationWindow
                     console.log(alarm)
                     var item = submenuAlarms.addItem(alarm)
                     item.id = "ID_"+alarm
-                    item.triggered.connect(function(){console.log("Value: " + alarmsItems[__selectedIndex])})
+                    item.triggered.connect(function(){runAlarm(alarmsItems[__selectedIndex])})
                     alarmsItems[index] = item.text
                     index++
                 }
                 return alarmsItems
             }
 
-            Component.onCompleted:
+            function runAlarm(valueAlarm)
             {
-                createMenuItemDefault()
+                //START: Split value alarm for number and unit
+                var tmpArray = valueAlarm.split("");
+                var number=""
+                var unit=""
+                for (var value of tmpArray)
+                {
+                    console.log(value)
+                    if (isNaN(value) === false)
+                    {
+                        console.log("number")
+                        number = number.concat(value);
+                    }
+                    else
+                    {
+                        console.log("unit")
+                        unit = unit.concat(value);
+                    }
+                }
+                //STOP: Split value alarm for number and unit
+                signal_alarm_started(number, unit)
             }
-    }
+        }
 
         MenuSeparator { }
         MenuItem
