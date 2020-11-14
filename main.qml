@@ -11,6 +11,10 @@ ApplicationWindow
     visible: true
     title: qsTr("QML Clock")
 
+    property var component_alarm_TMP: Qt.createComponent("alarm.qml")
+    property var alarm_obiekt: component_alarm_TMP.createObject(mainWindow)
+
+
     property string title_string: "QML Clock"
 
     property string czas_string: "Hour"

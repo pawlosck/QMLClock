@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>settings_window.qml</file>
+        <file>alarm.qml</file>
     </qresource>
 </RCC>
