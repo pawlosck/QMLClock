@@ -11,8 +11,8 @@ ApplicationWindow
     visible: true
     title: qsTr("QML Clock")
 
-    property var component_alarm_TMP: Qt.createComponent("alarm.qml")
-    property var alarm_obiekt: component_alarm_TMP.createObject(mainWindow)
+    property var component_alarm: Qt.createComponent("alarm.qml")
+    property var alarm_object: component_alarm.createObject()
 
 
     property string title_string: "QML Clock"
@@ -29,24 +29,26 @@ ApplicationWindow
     property string border_option: window_settings.getValue("border")
     property string onTop_option: window_settings.getValue("onTop")
 
-    signal signal_alarm_started(string value, string unit)
+    signal signal_alarm_started_menuitem(int value, string unit)  //Wybranie alarmu z menu Alarms
 
-    onSignal_alarm_started:
+    onSignal_alarm_started_menuitem:
     {
+        var value_timer = 0
         if(unit === "s")
         {
-            timer_alarm_ID.valueInterval = 1000*value
+            value_timer = value
         }
         else if(unit === "m")
         {
-            timer_alarm_ID.valueInterval = 1000*60*value
+            value_timer = 60*value
         }
         else if(unit === "h")
         {
-            timer_alarm_ID.valueInterval = 1000*60*60*value
+            value_timer = 60*60*value
         }
 
-        timer_alarm_ID.start()
+        console.log("value_timer: " + value_timer)
+        alarm_object.runAlarm(value_timer, "type", "message")
     }
 
     Connections
@@ -325,19 +327,19 @@ ApplicationWindow
                     console.log(alarm)
                     var item = submenuAlarms.addItem(alarm)
                     item.id = "ID_"+alarm
-                    item.triggered.connect(function(){runAlarm(alarmsItems[__selectedIndex])})
+                    item.triggered.connect(function(){runAlarmMenuItem(alarmsItems[__selectedIndex])})
                     alarmsItems[index] = item.text
                     index++
                 }
                 return alarmsItems
             }
 
-            function runAlarm(valueAlarm)
+            function runAlarmMenuItem(valueAlarm)
             {
                 //START: Split value alarm for number and unit
                 var tmpArray = valueAlarm.split("");
-                var number=""
-                var unit=""
+                var number = ""
+                var unit = ""
                 for (var value of tmpArray)
                 {
                     console.log(value)
@@ -353,7 +355,7 @@ ApplicationWindow
                     }
                 }
                 //STOP: Split value alarm for number and unit
-                signal_alarm_started(number, unit)
+                signal_alarm_started_menuitem(number, unit)
             }
         }
 
