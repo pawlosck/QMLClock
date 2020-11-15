@@ -49,7 +49,7 @@ ApplicationWindow
         }
 
         var alarm_object = component_alarm.createObject()
-        alarm_object.signal_alarm_finished.connect(function(){mainWindow.title = "ALARM" + alarm_object.getTimerID()})
+        alarm_object.signal_alarm_finished.connect(function(){showAlarmNotification(alarm_object.getTimerID())})
         list_of_alarms.push(alarm_object)
         console.log("value_timer: " + value_timer)
         alarm_object.runAlarm(value_timer, "type", "message")
@@ -185,6 +185,23 @@ ApplicationWindow
         console.log("timeOnly: " + timeOnly)
 
         Qt.quit()
+    }
+
+    function showAlarmNotification(timerID)
+    {
+        console.log(timerID)
+        timerAlarmNotificationTimeLAbel.start()
+//        for (var value of list_of_alarms)
+//        {
+
+//        }
+    }
+
+    Timer
+    {
+        id: timerAlarmNotificationTimeLAbel
+        interval: 2000; running: false; repeat: true
+        onTriggered: czas_string = "ALARM"
     }
 
     onClosing:
