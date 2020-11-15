@@ -101,14 +101,14 @@ ApplicationWindow
         {
             console.log("timeOnly true: " + timeOnly)
             setMenuTimeOnly()
-            menu.items[3].checked = false
+            menu.items[2].checked = false
             timeOnly = true
         }
         else
         {
             console.log("timeOnly false: " + timeOnly)
             setMenuTimeAndDate()
-            menu.items[3].checked = true
+            menu.items[2].checked = true
             timeOnly = false
         }
 
@@ -257,7 +257,7 @@ ApplicationWindow
                 }
             }
         }
-        MenuSeparator { }
+
         MenuItem
         {
             id: date
@@ -283,6 +283,9 @@ ApplicationWindow
                 }
             }
         }
+
+        MenuSeparator { }
+
         MenuItem
         {
             id: settings
@@ -325,6 +328,8 @@ ApplicationWindow
                 window_settings.openColorDialogFont()
             }
         }
+
+        MenuSeparator { }
 
         Menu
         {
