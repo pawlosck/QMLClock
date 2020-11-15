@@ -64,13 +64,13 @@ ApplicationWindow
         }
     }
 
-    Timer
-    {
-        id: timer_alarm_ID
-        property var valueInterval: 1000
-        interval: valueInterval; running: false; repeat: false
-        onTriggered: mainWindow.title = "WWWWWWWWWWWWWW"
-    }
+//    Timer
+//    {
+//        id: timer_alarm_ID
+//        property var valueInterval: 1000
+//        interval: valueInterval; running: false; repeat: false
+//        onTriggered: mainWindow.title = "WWWWWWWWWWWWWW"
+//    }
 
     Connections
     {
