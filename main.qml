@@ -190,7 +190,7 @@ ApplicationWindow
     function showAlarmNotification(timerID)
     {
         console.log(timerID)
-        timerAlarmNotificationTimeLAbel.start()
+        timerAlarmNotificationTimeLabel.start()
 //        for (var value of list_of_alarms)
 //        {
 
@@ -199,9 +199,26 @@ ApplicationWindow
 
     Timer
     {
-        id: timerAlarmNotificationTimeLAbel
-        interval: 2000; running: false; repeat: true; triggeredOnStart: true
-        onTriggered: czas_string = "ALARM"
+        id: timerAlarmNotificationTimeLabel
+        interval: 1000; running: false; repeat: true; triggeredOnStart: true
+//        onTriggered: czas_string = "ALARM"
+        onTriggered: switchBeetwenAlarmNotificationAndCurrentTime()
+    }
+
+    function switchBeetwenAlarmNotificationAndCurrentTime()
+    {
+        var seconds = new Date().getSeconds()
+        var resultOfMod = seconds % 2;
+        if (resultOfMod === 0 )
+        {
+            timeLabel.text = Qt.binding(() => mainWindow.czas_string)
+        }
+        else
+        {
+            timeLabel.text = "ALARM"
+        }
+
+
     }
 
     onClosing:
@@ -410,6 +427,8 @@ ApplicationWindow
             }
             else if (mouse.button == Qt.LeftButton)
             {
+                timeLabel.text = Qt.binding(() => czas_string)
+                timerAlarmNotificationTimeLabel.stop()  //Wylacz timer ktory wyswietla napis ALARM na labelce z godzina
             }
             else
             {
