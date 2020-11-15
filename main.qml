@@ -49,7 +49,7 @@ ApplicationWindow
         }
 
         var alarm_object = component_alarm.createObject()
-
+        alarm_object.signal_alarm_finished.connect(function(){mainWindow.title = "ALARM" + alarm_object.getTimerID()})
         list_of_alarms.push(alarm_object)
         console.log("value_timer: " + value_timer)
         alarm_object.runAlarm(value_timer, "type", "message")

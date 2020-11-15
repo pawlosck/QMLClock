@@ -3,6 +3,8 @@ import QtQml 2.15
 
 Item
 {
+    signal signal_alarm_finished(int timerID_value)
+
     QtObject
     {
         //W obiekcie QObject nie moze byc wiecej obiektow, bo inaczej bedzie wywlac blad, ze component nie zaladowany
@@ -86,6 +88,7 @@ Item
             console.log("Alarm doszedl do zera")
             timerAlarmID.stop()
             alarm.alarm_finished = true
+            signal_alarm_finished(getTimerID())
         }
 
 //        console.log("updateAlarm =============================================")
