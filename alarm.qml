@@ -7,6 +7,9 @@ Item
     {
         //W obiekcie QObject nie moze byc wiecej obiektow, bo inaczej bedzie wywlac blad, ze component nie zaladowany
         id: alarm
+
+        property var timerID: 0 //Zmienna do ktorej bedzie przypisywana wartosc na podstawie ktore bedzie mozna znalezc obiekt
+
         property int start_date_unix_timestamp: 0 //Data dodania alarmu uzywajac unix time. Od tego czasu liczy sie alarm
         property int stop_date_unix_timestamp: 0 //Data uruchomienia alarmu uzywajac unix time.
 //        property int timer_value_seconds: 0 // za ile ma sie wlaczyc alarm w sekundach
@@ -21,6 +24,11 @@ Item
         property date dateObject: new Date
     }
 
+
+    function getTimerID()
+    {
+        return alarm.timerID
+    }
 
 //    function setStartDate(startDate)
 //    {
@@ -96,6 +104,8 @@ Item
 
     Component.onCompleted:
     {
+        alarm.timerID = Date.now()
+
         console.log("Obiekt utworzony")
 //        runAlarm(4, "type", "message")
     }
