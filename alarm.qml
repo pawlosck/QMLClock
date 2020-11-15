@@ -16,6 +16,8 @@ Item
         property int timer_elapsed: 0 //Ile uplynelo sekund od uruchomienia alarmu
         property int timer_remaining: 0 //Ile czasu zostalo do uruchomienia alarmu
 
+        property bool alarm_finished: false
+
         property date dateObject: new Date
     }
 
@@ -75,6 +77,7 @@ Item
         {
             console.log("Alarm doszedl do zera")
             timerAlarmID.stop()
+            alarm.alarm_finished = true
         }
 
 //        console.log("updateAlarm =============================================")
@@ -84,6 +87,11 @@ Item
 //        console.log("alarm.start_date_unix_timestamp: " + alarm.start_date_unix_timestamp)
 //        console.log("alarm.stop_date_unix_timestamp: " + alarm.stop_date_unix_timestamp)
 //        console.log("=============================================")
+    }
+
+    function isAlarmFinished()
+    {
+        return alarm.alarm_finished
     }
 
     Component.onCompleted:

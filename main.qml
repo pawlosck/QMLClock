@@ -465,6 +465,9 @@ ApplicationWindow
         console.log("timeOnly: " + timeOnly)
         console.log("border_option: " + border_option)
         console.log("onTop_option: " + onTop_option)
+
+//        console.log("list_of_alarms[0].isAlarmFinished(): " + list_of_alarms[0].isAlarmFinished())  //wywala blad dopoki nie doda sie alarmu. To jest normalne
+
     }
     Timer
     {
