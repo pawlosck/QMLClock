@@ -200,7 +200,7 @@ ApplicationWindow
     Timer
     {
         id: timerAlarmNotificationTimeLAbel
-        interval: 2000; running: false; repeat: true
+        interval: 2000; running: false; repeat: true; triggeredOnStart: true
         onTriggered: czas_string = "ALARM"
     }
 

@@ -116,7 +116,7 @@ Item
     Timer
     {
         id: timerAlarmID
-        interval: 1000; running: false; repeat: true
+        interval: 1000; running: false; repeat: true; triggeredOnStart: true
         onTriggered: updateAlarm()
     }
 
