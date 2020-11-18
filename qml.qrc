@@ -3,5 +3,6 @@
         <file>main.qml</file>
         <file>settings_window.qml</file>
         <file>alarm.qml</file>
+        <file>new_alarm_window.qml</file>
     </qresource>
 </RCC>

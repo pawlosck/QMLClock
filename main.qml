@@ -1,6 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 1.4
+//import QtQuick.Controls 2.12
 
 //https://doc.qt.io/qt-5/qml-qtqml-date.html
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply
@@ -12,7 +13,9 @@ ApplicationWindow
     title: qsTr("QML Clock")
 
     property var component_alarm: Qt.createComponent("alarm.qml")
-//    property var alarm_object: component_alarm.createObject()
+    property var component_new_alarm: Qt.createComponent("new_alarm_window.qml")
+
+    property var new_alarm_object: component_new_alarm.createObject(mainWindow)
 
     property var list_of_alarms: []
 
@@ -347,6 +350,16 @@ ApplicationWindow
         }
 
         MenuSeparator { }
+
+        MenuItem
+        {
+            id: add_new_alarm
+            text: "Add new alarm"
+            onTriggered:
+            {
+                new_alarm_object.show()
+            }
+        }
 
         Menu
         {
