@@ -33,6 +33,10 @@ ApplicationWindow
     property string border_option: window_settings.getValue("border")
     property string onTop_option: window_settings.getValue("onTop")
 
+    property int numberOfAlarms: 0          //Liczba wszystkich alarmow
+    property int numberOfFinishedAlarms: 0  //Alarmy, ktore doszly do 0
+
+
     signal signal_alarm_started_menuitem(int value, string unit)  //Wybranie alarmu z menu Alarms
 
     onSignal_alarm_started_menuitem:
@@ -57,6 +61,24 @@ ApplicationWindow
         console.log("value_timer: " + value_timer)
         alarm_object.runAlarm(value_timer, "type", "message")
     }
+
+    function updateNumberOfAlarms()
+    {
+        numberOfAlarms = list_of_alarms.length
+
+        var index = 0
+        for (var alarm of list_of_alarms)
+        {
+            var result = alarm.isAlarmFinished()
+            if (result === true)
+            {
+                index++
+            }
+        }
+        numberOfFinishedAlarms = index
+
+    }
+
 
     Connections
     {
@@ -503,6 +525,18 @@ ApplicationWindow
         var seconds_string = data.toLocaleString(Qt.locale("pl_PL"), "s");
 
         var textTimeAndDate = [title_czas_string, title_data_string, title_day_name_string];
+
+        if (list_of_alarms.length > 0)
+        {
+            updateNumberOfAlarms()
+            var messageAlarms = numberOfAlarms + " alarms"
+            var messageFinishedAlarms = numberOfFinishedAlarms + " finished alarms"
+            textTimeAndDate.push(messageAlarms)
+            textTimeAndDate.push(messageFinishedAlarms)
+        }
+
+        var textTimeAndDateSize = textTimeAndDate.length
+
         var resultOfMod = seconds_string % 4;
 
         title = title_string + " -> " + textTimeAndDate[titleLastUsedTimeOrDate];
@@ -510,7 +544,7 @@ ApplicationWindow
         if (resultOfMod === 0)
         {
             titleLastUsedTimeOrDate = titleLastUsedTimeOrDate + 1
-            if (titleLastUsedTimeOrDate > 2)
+            if (titleLastUsedTimeOrDate > (textTimeAndDateSize-1))
             {
                 titleLastUsedTimeOrDate = 0
             }
