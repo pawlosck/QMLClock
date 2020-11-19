@@ -50,5 +50,10 @@ Window
         model: modelID
         delegate: delegatID
     }
+
+    Component.onCompleted:
+    {
+        modelID.append( { "name": "WWWWWWWWWWW", "number": "123456789" } )
+    }
 }
 
