@@ -1,7 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 1.4
-//import QtQuick.Controls 2.12
+import QtQml 2.15
 
 //https://doc.qt.io/qt-5/qml-qtqml-date.html
 //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply
@@ -14,8 +14,10 @@ ApplicationWindow
 
     property var component_alarm: Qt.createComponent("alarm.qml")
     property var component_new_alarm: Qt.createComponent("new_alarm_window.qml")
+    property var component_alarm_list: Qt.createComponent("alarm_list_window.qml")
 
     property var new_alarm_object: component_new_alarm.createObject(mainWindow)
+    property var alarm_list_object: component_alarm_list.createObject(mainWindow)
 
     property var list_of_alarms: []
 
@@ -111,6 +113,8 @@ ApplicationWindow
     {
         //aplikacja uruchomiona
         console.log("Aplikacja uruchomiona")
+
+alarm_list_object.visible = true
 
         timeOnly = window_settings.getValue("timeOnly")
         border_option = window_settings.getValue("border")
@@ -380,6 +384,16 @@ ApplicationWindow
             onTriggered:
             {
                 new_alarm_object.show()
+            }
+        }
+
+        MenuItem
+        {
+            id: alarm_list
+            text: "Show alarms"
+            onTriggered:
+            {
+                alarm_list_object.show()
             }
         }
 

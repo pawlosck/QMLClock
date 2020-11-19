@@ -33,6 +33,6 @@ Window
 
     Component.onCompleted:
     {
-
+        console.log("Okno otwarte")
     }
 }
