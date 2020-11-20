@@ -32,6 +32,43 @@ Item
         return alarm.timerID
     }
 
+    function getStartDate()
+    {
+        return alarm.start_date_unix_timestamp
+    }
+
+    function getStoptDate()
+    {
+        return alarm.stop_date_unix_timestamp
+    }
+
+    function getMessage()
+    {
+        return alarm.message
+    }
+
+    function getTypeAlarm()
+    {
+        return alarm.type_of_alarm
+    }
+
+    function getElapsedTime()
+    {
+        return alarm.timer_elapsed
+    }
+
+    function getRemainingTime()
+    {
+        return alarm.timer_remaining
+    }
+
+    function isAlarmFinished()
+    {
+        return alarm.alarm_finished
+    }
+
+
+
 //    function setStartDate(startDate)
 //    {
 //        start_date_unix_timestamp = startDate
@@ -86,7 +123,7 @@ Item
         if(alarm.stop_date_unix_timestamp <= currentDate_UnixTime)
         {
             console.log("Alarm doszedl do zera")
-            timerAlarmID.stop()
+//            timerAlarmID.stop()
             alarm.alarm_finished = true
             signal_alarm_finished(getTimerID())
         }
@@ -100,10 +137,7 @@ Item
 //        console.log("=============================================")
     }
 
-    function isAlarmFinished()
-    {
-        return alarm.alarm_finished
-    }
+
 
     Component.onCompleted:
     {
@@ -119,6 +153,4 @@ Item
         interval: 1000; running: false; repeat: true; triggeredOnStart: true
         onTriggered: updateAlarm()
     }
-
-
 }
