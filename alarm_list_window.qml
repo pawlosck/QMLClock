@@ -12,48 +12,68 @@ Window
     width: 400
     height: 400
 
-//    A ListView displays data from models created from built-in QML types like ListModel
-//A ListView has a model, which defines the data to be displayed, and a delegate, which defines how the data should be displayed.
-
-
     ListModel
     {
         id: modelID
 
-        ListElement {
-            name: "Bill Smith"
-            number: "555 3264"
-        }
-        ListElement {
-            name: "John Brown"
-            number: "555 8426"
-        }
-        ListElement {
-            name: "Sam Wise"
-            number: "555 0473"
-        }
+//        ListElement
+//        {
+//            idAlarm: ""
+//            typeAlarm: ""
+//            messageAlarm: ""
+//        }
     }
     Component
     {
         id: delegatID
-        Text
+        Rectangle
         {
-            id: name
-            text: "Name: " + model.name + " : Number: " + model.number
+            id: alarmItemDelegate
+//            x: 0
+//            y: 0
+            width: 200
+            height: 50
+            border.width: 1
+            radius: 10
+
+            Text
+            {
+                id: idAl
+                y: 0
+                text: "ID: " + model.idAlarm
+            }
+            Text
+            {
+                id: messAl
+                y: idAl.height
+                text: "message: " + model.messageAlarm
+            }
         }
     }
     ListView
     {
+        spacing: 5
+        clip: true
+
         id: listviewID
         anchors.fill: parent
-        width: 180; height: 200
+        width: 400; height: 400
         model: modelID
         delegate: delegatID
     }
-
     Component.onCompleted:
     {
-        modelID.append( { "name": "WWWWWWWWWWW", "number": "123456789" } )
+//        modelID.append( { "idAlarm": "12345678", "typeAlarm": "TV", "messageAlarm": "Jakas wiadomosc" } )
+    }
+    Timer
+    {
+        id: timerUpdateListView
+        interval: 1000; running: true; repeat: true; triggeredOnStart: true
+        onTriggered: updateListView()
+    }
+    function updateListView()
+    {
+        modelID.append( { "idAlarm": "alarm.timer_remaining", "typeAlarm": "TT", "messageAlarm": "Jakas wiadomosc" } )
     }
 }
 
