@@ -62,6 +62,7 @@ ApplicationWindow
         list_of_alarms.push(alarm_object)
         console.log("value_timer: " + value_timer)
         alarm_object.runAlarm(value_timer, "type", "message")
+        list_of_alarms.sort((a, b) => { return a.getRemainingTime() - b.getRemainingTime(); });
     }
 
     function updateNumberOfAlarms()

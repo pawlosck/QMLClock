@@ -5,6 +5,10 @@ import QtQuick 2.15
 import QtQml 2.15
 //import QtQuick 2.0
 
+//Sortowanie
+//https://www.w3schools.com/jsref/jsref_sort.asp
+//https://www.javascripttutorial.net/array/javascript-sort-an-array-of-objects/
+
 Window
 {
     id: alarmListWindow
@@ -16,12 +20,13 @@ Window
     {
         id: modelID
 
-//        ListElement
-//        {
-//            idAlarm: ""
-//            typeAlarm: ""
-//            messageAlarm: ""
-//        }
+        ListElement
+        {
+            idAlarm: 0
+            remainingTime: 0
+            typeAlarm: ""
+            messageAlarm: ""
+        }
     }
     Component
     {
@@ -29,23 +34,30 @@ Window
         Rectangle
         {
             id: alarmItemDelegate
-//            x: 0
-//            y: 0
-            width: 200
-            height: 50
+            width: listviewID.width
+            height: 45
             border.width: 1
-            radius: 10
+            radius: 5
 
             Text
             {
-                id: idAl
+                id: remainingAl
+                x: 5
                 y: 0
-                text: "ID: " + model.idAlarm
+                text: "Remaining: " + model.remainingTime
             }
             Text
             {
-                id: messAl
-                y: idAl.height
+                id: typeAl
+                x: 5
+                y: remainingAl.height
+                text: "Type: " + model.typeAlarm
+            }
+            Text
+            {
+                id: messageAl
+                x: 5
+                y: remainingAl.height*2
                 text: "message: " + model.messageAlarm
             }
         }
@@ -56,15 +68,13 @@ Window
         clip: true
 
         id: listviewID
-        anchors.fill: parent
-        width: 400; height: 400
+//        anchors.fill: parent
+        width: parent.width
+        height: parent.height/2
         model: modelID
         delegate: delegatID
     }
-    Component.onCompleted:
-    {
-//        modelID.append( { "idAlarm": "12345678", "typeAlarm": "TV", "messageAlarm": "Jakas wiadomosc" } )
-    }
+
     Timer
     {
         id: timerUpdateListView
@@ -73,7 +83,28 @@ Window
     }
     function updateListView()
     {
-        modelID.append( { "idAlarm": "alarm.timer_remaining", "typeAlarm": "TT", "messageAlarm": "Jakas wiadomosc" } )
+
+        if (list_of_alarms.length !== modelID.count)
+        {
+            modelID.clear()
+            for (var alarm of list_of_alarms)
+            {
+//                console.log("Sortowanie:" + alarm.getRemainingTime())
+                modelID.append( { "remainingTime": alarm.getRemainingTime(), "typeAlarm": alarm.getTypeAlarm(), "messageAlarm": alarm.getMessage()} )
+            }
+        }
+        else
+        {
+            var index = 0
+            for (var alarm of list_of_alarms)
+            {
+                console.log("Sortowanie:" + alarm.getRemainingTime())
+                modelID.setProperty(index, "remainingTime", alarm.getRemainingTime() )
+                modelID.setProperty(index, "typeAlarm", alarm.getTypeAlarm() )
+                modelID.setProperty(index, "messageAlarm", alarm.getMessage() )
+                index++
+            }
+        }
     }
 }
 

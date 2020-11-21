@@ -120,7 +120,7 @@ Item
         console.log("Time:" + alarm.start_date_unix_timestamp + " : " + alarm.stop_date_unix_timestamp + " : " + currentDate_UnixTime)
         console.log("Type:" + alarm.type_of_alarm + " Message: " + alarm.message)
 
-        if(alarm.stop_date_unix_timestamp <= currentDate_UnixTime)
+        if(alarm.stop_date_unix_timestamp <= currentDate_UnixTime && alarm.alarm_finished !== true)
         {
             console.log("Alarm doszedl do zera")
 //            timerAlarmID.stop()
