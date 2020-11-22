@@ -16,6 +16,10 @@ Window
     width: 400
     height: 400
 
+    property string remainingInfoString: "Remaining: " + "model.remainingTime"
+    property string typeInfoString: "Type: " + "model.remainingTime"
+    property string messageInfoString: "Message: " + "model.remainingTime"
+
     ListModel
     {
         id: modelID
@@ -35,9 +39,9 @@ Window
         {
             id: alarmItemDelegate
             width: listviewID.width
-            height: 50
+            height: 35
             border.width: 1
-            radius: 5
+//            radius: 5
 
             color: ListView.isCurrentItem ? "grey" : "transparent"
             Text
@@ -47,44 +51,128 @@ Window
                 anchors.top: parent.top
                 text: "Remaining: " + model.remainingTime
                 color: alarmItemDelegate.ListView.isCurrentItem ? "yellow" : "black"
+                font.pixelSize: (parent.height/2)-2
             }
             Text
             {
                 id: typeAl
                 x: 5
-                anchors.verticalCenter: parent.verticalCenter
+//                anchors.verticalCenter: parent.verticalCenter
+                anchors.bottom: parent.bottom
                 text: "Type: " + model.typeAlarm
                 color: alarmItemDelegate.ListView.isCurrentItem ? "yellow" : "black"
+                font.pixelSize: (parent.height/2)-2
             }
-            Text
-            {
-                id: messageAl
-                x: 5
-                anchors.bottom: parent.bottom
-                text: "message: " + model.messageAlarm
-                color: alarmItemDelegate.ListView.isCurrentItem ? "yellow" : "black"
-            }
+//            Text
+//            {
+//                id: messageAl
+//                x: 5
+//                anchors.bottom: parent.bottom
+//                text: "message: " + model.messageAlarm
+//                color: alarmItemDelegate.ListView.isCurrentItem ? "yellow" : "black"
+//            }
         }
     }
-
-    ListView
+    ColumnLayout
     {
-        spacing: 5
-        clip: true
-
-        id: listviewID
         anchors.fill: parent
-
-        width: parent.width
-        height: parent.height/2
-        model: modelID
-        delegate: delegatID
-
-        MouseArea
+        Text
         {
-            anchors.fill: parent
+            id: headerAlarmListLabel
+            width: parent.width
+            height: 70
+            text: qsTr("Lista alarmow")
+        }
 
-            onClicked: setCurrentItem(mouseX, mouseY)
+        RowLayout
+        {
+            Rectangle
+            {
+                border.width: 1
+
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                Layout.minimumWidth: 50
+                Layout.maximumWidth: parent.width/2
+                Layout.minimumHeight: parent.height/2
+                ListView
+                {
+                    id: listviewID
+                    spacing: 5
+                    clip: true
+                    anchors.fill: parent
+
+//                    Layout.fillHeight: true
+//                    width: 200
+
+                    model: modelID
+                    delegate: delegatID
+
+                    MouseArea
+                    {
+                        anchors.fill: parent
+                        onClicked: setCurrentItem(mouseX, mouseY)
+                    }
+                }
+            }
+            ColumnLayout
+            {
+                ColumnLayout
+                {
+                    spacing: 2
+                    Rectangle
+                    {
+                        border.width: 1
+//                        color: "green"
+                        Layout.fillWidth: true
+//                        Layout.fillHeight: true
+                        Layout.minimumWidth: 20
+                        Layout.minimumHeight: 20
+                        Text
+                        {
+                            id: remainingInfoLabel
+                            text: remainingInfoString
+                        }
+                    }
+                    Rectangle
+                    {
+                        border.width: 1
+//                        color: "green"
+                        Layout.fillWidth: true
+//                        Layout.fillHeight: true
+                        Layout.minimumWidth: 20
+                        Layout.minimumHeight: 20
+                        Text
+                        {
+                            id: typeInfoLabel
+                            text: typeInfoString
+                        }
+                    }
+                    Rectangle
+                    {
+                        border.width: 1
+//                        color: "green"
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        Layout.minimumWidth: 20
+                        Layout.minimumHeight: 20
+                        Text
+                        {
+                            id: messageInfoLabel
+                            text: messageInfoString
+                        }
+                    }
+                }
+                Button
+                {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    Layout.minimumWidth: 20
+                    Layout.minimumHeight: 20
+                    Layout.maximumHeight: 40
+                    text: "Delete alarm"
+                }
+            }
         }
     }
 
