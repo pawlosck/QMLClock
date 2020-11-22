@@ -71,6 +71,10 @@ Window
 //                text: "message: " + model.messageAlarm
 //                color: alarmItemDelegate.ListView.isCurrentItem ? "yellow" : "black"
 //            }
+            function getTimerID()
+            {
+                return idAlarm
+            }
         }
     }
     ColumnLayout
@@ -171,6 +175,41 @@ Window
                     Layout.minimumHeight: 20
                     Layout.maximumHeight: 40
                     text: "Delete alarm"
+
+                    onClicked:
+                    {
+                        if (modelID.count > 0 && listviewID.currentIndex != -1)
+                        {
+                            var index = 0
+                            for (var alarm of list_of_alarms)
+                            {
+                                console.log("listviewID.currentItem.getTimerID(): " + listviewID.currentItem.getTimerID())
+                                console.log("alarm.getTimerID(): " + alarm.getTimerID())
+                                console.log("index: " + index)
+
+                                if (alarm.getTimerID() === listviewID.currentItem.getTimerID())
+                                {
+                                    list_of_alarms.splice(index,1)
+                                    modelID.remove(listviewID.currentIndex)
+                                    console.log("=======================")
+                                    console.log("listviewID.currentItem.getTimerID(): " + listviewID.currentItem.getTimerID())
+                                    console.log("alarm.getTimerID(): " + alarm.getTimerID())
+                                    console.log("index: " + index)
+                                    console.log("=======================")
+                                }
+                                index++
+                            }
+
+//                            list_of_alarms.splice(1,1) listviewID.currentItem.getTimerID()
+
+
+
+//                            for (var alarm of list_of_alarms)
+//                            {
+////                                modelID.append( {"idAlarm":alarm.getTimerID(), "remainingTime": alarm.getRemainingTime(), "typeAlarm": alarm.getTypeAlarm(), "messageAlarm": alarm.getMessage()} )
+//                            }
+                        }
+                    }
                 }
             }
         }
@@ -190,7 +229,7 @@ Window
             modelID.clear()
             for (var alarm of list_of_alarms)
             {
-                modelID.append( { "remainingTime": alarm.getRemainingTime(), "typeAlarm": alarm.getTypeAlarm(), "messageAlarm": alarm.getMessage()} )
+                modelID.append( {"idAlarm":alarm.getTimerID(), "remainingTime": alarm.getRemainingTime(), "typeAlarm": alarm.getTypeAlarm(), "messageAlarm": alarm.getMessage()} )
             }
         }
         else
