@@ -141,14 +141,30 @@ Item
     {
         seconds = Number(seconds);
 
+        var negativeValue = false
+        if (seconds < 0)
+        {
+            negativeValue = true
+            seconds = Math.abs(seconds)
+        }
+
         var d = Math.floor(seconds / 86400).toString();
         var h = Math.floor(seconds / 3600 % 24).toString();
         var m = Math.floor(seconds % 3600 / 60).toString();
         var s = Math.floor(seconds % 3600 % 60).toString();
 
-        var outputFormat = d + " " + h.padStart(2, '0') + ":" + m.padStart(2, '0') + ":" + s.padStart(2, '0')
-//        console.log("CZAS: " + d + " " + h + ":" + m + ":" + s)
-//        return d + " " + h + ":" + m + ":" + s
+        var outputFormat = d + " day(s)" + " " + h.padStart(2, '0') + ":" + m.padStart(2, '0') + ":" + s.padStart(2, '0')
+        d = Number(d)
+        if( d === 0)
+        {
+            outputFormat = h.padStart(2, '0') + ":" + m.padStart(2, '0') + ":" + s.padStart(2, '0')
+        }
+
+        if (negativeValue === true)
+        {
+            outputFormat = "-" + outputFormat
+        }
+
         return outputFormat
     }
 
