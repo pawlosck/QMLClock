@@ -40,33 +40,29 @@ Window
             radius: 5
 
             color: ListView.isCurrentItem ? "grey" : "transparent"
-            Item
+            Text
             {
-                anchors.fill: parent
-                Text
-                {
-                    id: remainingAl
-                    x: 5
-                    anchors.top: parent.top
-                    text: "Remaining: " + model.remainingTime
-                    color: alarmItemDelegate.ListView.isCurrentItem ? "yellow" : "black"
-                }
-                Text
-                {
-                    id: typeAl
-                    x: 5
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: "Type: " + model.typeAlarm
-                    color: alarmItemDelegate.ListView.isCurrentItem ? "yellow" : "black"
-                }
-                Text
-                {
-                    id: messageAl
-                    x: 5
-                    anchors.bottom: parent.bottom
-                    text: "message: " + model.messageAlarm
-                    color: alarmItemDelegate.ListView.isCurrentItem ? "yellow" : "black"
-                }
+                id: remainingAl
+                x: 5
+                anchors.top: parent.top
+                text: "Remaining: " + model.remainingTime
+                color: alarmItemDelegate.ListView.isCurrentItem ? "yellow" : "black"
+            }
+            Text
+            {
+                id: typeAl
+                x: 5
+                anchors.verticalCenter: parent.verticalCenter
+                text: "Type: " + model.typeAlarm
+                color: alarmItemDelegate.ListView.isCurrentItem ? "yellow" : "black"
+            }
+            Text
+            {
+                id: messageAl
+                x: 5
+                anchors.bottom: parent.bottom
+                text: "message: " + model.messageAlarm
+                color: alarmItemDelegate.ListView.isCurrentItem ? "yellow" : "black"
             }
         }
     }
