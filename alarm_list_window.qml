@@ -20,13 +20,13 @@ Window
     {
         id: modelID
 
-        ListElement
-        {
-            idAlarm: 0
-            remainingTime: 0
-            typeAlarm: ""
-            messageAlarm: ""
-        }
+//        ListElement
+//        {
+//            idAlarm: 0
+//            remainingTime: 0
+//            typeAlarm: ""
+//            messageAlarm: ""
+//        }
     }
     Component
     {
@@ -35,44 +35,61 @@ Window
         {
             id: alarmItemDelegate
             width: listviewID.width
-            height: 45
+            height: 50
             border.width: 1
             radius: 5
 
-            Text
+            color: ListView.isCurrentItem ? "grey" : "transparent"
+            Item
             {
-                id: remainingAl
-                x: 5
-                y: 0
-                text: "Remaining: " + model.remainingTime
-            }
-            Text
-            {
-                id: typeAl
-                x: 5
-                y: remainingAl.height
-                text: "Type: " + model.typeAlarm
-            }
-            Text
-            {
-                id: messageAl
-                x: 5
-                y: remainingAl.height*2
-                text: "message: " + model.messageAlarm
+                anchors.fill: parent
+                Text
+                {
+                    id: remainingAl
+                    x: 5
+                    anchors.top: parent.top
+                    text: "Remaining: " + model.remainingTime
+                    color: alarmItemDelegate.ListView.isCurrentItem ? "yellow" : "black"
+                }
+                Text
+                {
+                    id: typeAl
+                    x: 5
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: "Type: " + model.typeAlarm
+                    color: alarmItemDelegate.ListView.isCurrentItem ? "yellow" : "black"
+                }
+                Text
+                {
+                    id: messageAl
+                    x: 5
+                    anchors.bottom: parent.bottom
+                    text: "message: " + model.messageAlarm
+                    color: alarmItemDelegate.ListView.isCurrentItem ? "yellow" : "black"
+                }
             }
         }
     }
+
     ListView
     {
         spacing: 5
         clip: true
 
         id: listviewID
-//        anchors.fill: parent
+        anchors.fill: parent
+
         width: parent.width
         height: parent.height/2
         model: modelID
         delegate: delegatID
+
+        MouseArea
+        {
+            anchors.fill: parent
+
+            onClicked: setCurrentItem(mouseX, mouseY)
+        }
     }
 
     Timer
@@ -89,7 +106,6 @@ Window
             modelID.clear()
             for (var alarm of list_of_alarms)
             {
-//                console.log("Sortowanie:" + alarm.getRemainingTime())
                 modelID.append( { "remainingTime": alarm.getRemainingTime(), "typeAlarm": alarm.getTypeAlarm(), "messageAlarm": alarm.getMessage()} )
             }
         }
@@ -98,13 +114,16 @@ Window
             var index = 0
             for (var alarm of list_of_alarms)
             {
-                console.log("Sortowanie:" + alarm.getRemainingTime())
                 modelID.setProperty(index, "remainingTime", alarm.getRemainingTime() )
-                modelID.setProperty(index, "typeAlarm", alarm.getTypeAlarm() )
-                modelID.setProperty(index, "messageAlarm", alarm.getMessage() )
                 index++
             }
         }
+    }
+
+    function setCurrentItem(x, y)
+    {
+        var index = listviewID.indexAt(x, y)
+        listviewID.currentIndex = index
     }
 }
 
