@@ -576,7 +576,6 @@ alarm_list_object.visible = true
 //        {
 //            list_of_alarms[0].destroy()
 //        }
-
     }
     Timer
     {

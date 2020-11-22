@@ -3,7 +3,7 @@ import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.15
 import QtQuick 2.15
 import QtQml 2.15
-//import QtQuick 2.0
+
 
 //Sortowanie
 //https://www.w3schools.com/jsref/jsref_sort.asp
@@ -199,15 +199,6 @@ Window
                                 }
                                 index++
                             }
-
-//                            list_of_alarms.splice(1,1) listviewID.currentItem.getTimerID()
-
-
-
-//                            for (var alarm of list_of_alarms)
-//                            {
-////                                modelID.append( {"idAlarm":alarm.getTimerID(), "remainingTime": alarm.getRemainingTime(), "typeAlarm": alarm.getTypeAlarm(), "messageAlarm": alarm.getMessage()} )
-//                            }
                         }
                     }
                 }
@@ -229,7 +220,7 @@ Window
             modelID.clear()
             for (var alarm of list_of_alarms)
             {
-                modelID.append( {"idAlarm":alarm.getTimerID(), "remainingTime": alarm.getRemainingTime(), "typeAlarm": alarm.getTypeAlarm(), "messageAlarm": alarm.getMessage()} )
+                modelID.append( {"idAlarm":alarm.getTimerID(), "remainingTime": alarm.convertSecondsIntoDaysAndTime(alarm.getRemainingTime()), "typeAlarm": alarm.getTypeAlarm(), "messageAlarm": alarm.getMessage()} )
             }
         }
         else
@@ -247,7 +238,7 @@ Window
             {
                 if (listviewID.currentIndex === index)
                 {
-                    remainingInfoString = alarm.getRemainingTime()
+                    remainingInfoString = alarm.convertSecondsIntoDaysAndTime(alarm.getRemainingTime())
                     typeInfoString = alarm.getTypeAlarm()
                     messageInfoString = alarm.getMessage()
                 }
@@ -258,7 +249,7 @@ Window
                     messageInfoString = ""
                 }
 
-                modelID.setProperty(index, "remainingTime", alarm.getRemainingTime() )
+                modelID.setProperty(index, "remainingTime", alarm.convertSecondsIntoDaysAndTime(alarm.getRemainingTime()) )
                 index++
             }
         }
