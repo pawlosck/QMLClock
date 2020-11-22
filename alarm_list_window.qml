@@ -196,6 +196,14 @@ Window
         else
         {
             var index = 0
+
+            if (modelID.count === 0)
+            {
+                remainingInfoString = ""
+                typeInfoString = ""
+                messageInfoString = ""
+            }
+
             for (var alarm of list_of_alarms)
             {
                 if (listviewID.currentIndex === index)
@@ -203,6 +211,12 @@ Window
                     remainingInfoString = alarm.getRemainingTime()
                     typeInfoString = alarm.getTypeAlarm()
                     messageInfoString = alarm.getMessage()
+                }
+                else if (listviewID.currentIndex === -1)
+                {
+                    remainingInfoString = ""
+                    typeInfoString = ""
+                    messageInfoString = ""
                 }
 
                 modelID.setProperty(index, "remainingTime", alarm.getRemainingTime() )
