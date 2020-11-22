@@ -128,7 +128,7 @@ Window
 //                        Layout.fillHeight: true
                         Layout.minimumWidth: 20
                         Layout.minimumHeight: 20
-                        Text
+                        TextInput
                         {
                             id: remainingInfoLabel
                             text: remainingInfoString
@@ -142,7 +142,7 @@ Window
 //                        Layout.fillHeight: true
                         Layout.minimumWidth: 20
                         Layout.minimumHeight: 20
-                        Text
+                        TextInput
                         {
                             id: typeInfoLabel
                             text: typeInfoString
@@ -156,7 +156,7 @@ Window
                         Layout.fillHeight: true
                         Layout.minimumWidth: 20
                         Layout.minimumHeight: 20
-                        Text
+                        TextEdit
                         {
                             id: messageInfoLabel
                             text: messageInfoString
