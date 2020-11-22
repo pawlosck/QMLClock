@@ -149,6 +149,9 @@ Window
                         TextInput
                         {
                             id: typeInfoLabel
+                            width: parent.width
+                            height: parent.height
+                            maximumLength: 20
                             text: typeInfoString
                         }
                     }
@@ -163,6 +166,8 @@ Window
                         TextEdit
                         {
                             id: messageInfoLabel
+                            width: parent.width
+                            height: parent.height
                             text: messageInfoString
                         }
                     }
