@@ -411,7 +411,7 @@ alarm_list_object.visible = true
 
             function createMenuItemDefault()
             {
-                var defaultAlarms = ["5s", "30s", "1m", "3m", "5m", "10m", "20m", "30m", "1h"];
+                var defaultAlarms = ["5s", "30s", "1m", "3m", "5m", "10m", "15m", "20m", "30m", "1h", "24h", "48h"];
                 var numberOfAlarms = defaultAlarms.length
                 var alarmsItems = [numberOfAlarms];
                 var index = 0
