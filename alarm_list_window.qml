@@ -198,6 +198,13 @@ Window
             var index = 0
             for (var alarm of list_of_alarms)
             {
+                if (listviewID.currentIndex === index)
+                {
+                    remainingInfoString = alarm.getRemainingTime()
+                    typeInfoString = alarm.getTypeAlarm()
+                    messageInfoString = alarm.getMessage()
+                }
+
                 modelID.setProperty(index, "remainingTime", alarm.getRemainingTime() )
                 index++
             }
