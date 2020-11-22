@@ -137,6 +137,22 @@ Item
 //        console.log("=============================================")
     }
 
+    function convertSecondsIntoDaysAndTime(seconds)
+    {
+        seconds = Number(seconds);
+
+        var d = Math.floor(seconds / 86400).toString();
+        var h = Math.floor(seconds / 3600 % 24).toString();
+        var m = Math.floor(seconds % 3600 / 60).toString();
+        var s = Math.floor(seconds % 3600 % 60).toString();
+
+        var outputFormat = d + " " + h.padStart(2, '0') + ":" + m.padStart(2, '0') + ":" + s.padStart(2, '0')
+//        console.log("CZAS: " + d + " " + h + ":" + m + ":" + s)
+//        return d + " " + h + ":" + m + ":" + s
+        return outputFormat
+    }
+
+
 
 
     Component.onCompleted:
