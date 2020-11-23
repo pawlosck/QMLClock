@@ -140,18 +140,18 @@ Window
                     }
                     Rectangle
                     {
+                        id: typeInfoBorder
                         border.width: 1
 //                        color: "green"
                         Layout.fillWidth: true
-//                        Layout.fillHeight: true
-                        Layout.minimumWidth: 20
-                        Layout.minimumHeight: 20
+                        Layout.minimumWidth: 40
+                        height: 20
                         TextInput
                         {
                             id: typeInfoLabel
                             width: parent.width
                             height: parent.height
-                            maximumLength: 20
+                            clip: true
                             text: typeInfoString
 
                             onTextChanged:
