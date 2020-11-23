@@ -5,5 +5,6 @@
         <file>alarm.qml</file>
         <file>new_alarm_window.qml</file>
         <file>alarm_list_window.qml</file>
+        <file>day_time_widget.qml</file>
     </qresource>
 </RCC>
