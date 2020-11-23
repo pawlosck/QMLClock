@@ -156,12 +156,15 @@ Window
 
                             onTextChanged:
                             {
-                                var index = 0
-                                for (var alarm of list_of_alarms)
+                                if (listviewID.currentIndex != -1)
                                 {
-                                    if (alarm.getTimerID() === listviewID.currentItem.getTimerID())
+                                    var index = 0
+                                    for (var alarm of list_of_alarms)
                                     {
-                                        alarm.setTypeOfAlarm(text)
+                                        if (alarm.getTimerID() === listviewID.currentItem.getTimerID())
+                                        {
+                                            alarm.setTypeOfAlarm(text)
+                                        }
                                     }
                                 }
                             }
@@ -184,12 +187,15 @@ Window
 
                             onTextChanged:
                             {
-                                var index = 0
-                                for (var alarm of list_of_alarms)
+                                if (listviewID.currentIndex != -1)
                                 {
-                                    if (alarm.getTimerID() === listviewID.currentItem.getTimerID())
+                                    var index = 0
+                                    for (var alarm of list_of_alarms)
                                     {
-                                        alarm.setMessage(text)
+                                        if (alarm.getTimerID() === listviewID.currentItem.getTimerID())
+                                        {
+                                            alarm.setMessage(text)
+                                        }
                                     }
                                 }
                             }
