@@ -212,19 +212,10 @@ Window
                             var index = 0
                             for (var alarm of list_of_alarms)
                             {
-                                console.log("listviewID.currentItem.getTimerID(): " + listviewID.currentItem.getTimerID())
-                                console.log("alarm.getTimerID(): " + alarm.getTimerID())
-                                console.log("index: " + index)
-
                                 if (alarm.getTimerID() === listviewID.currentItem.getTimerID())
                                 {
                                     list_of_alarms.splice(index,1)
                                     modelID.remove(listviewID.currentIndex)
-                                    console.log("=======================")
-                                    console.log("listviewID.currentItem.getTimerID(): " + listviewID.currentItem.getTimerID())
-                                    console.log("alarm.getTimerID(): " + alarm.getTimerID())
-                                    console.log("index: " + index)
-                                    console.log("=======================")
                                 }
                                 index++
                             }

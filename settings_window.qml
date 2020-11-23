@@ -1,9 +1,5 @@
 import QtQuick.Window 2.15
 import Qt.labs.settings 1.0
-//import QtQuick.Controls 1.4
-//import QtQuick.Layouts 1.15
-//import QtQml.Models 2.15
-//import QtQuick.Controls.Styles 1.4
 import QtQuick 2.12
 import QtQuick.Controls 2.15
 import QtQuick.Dialogs 1.0
@@ -42,9 +38,6 @@ Window
         x: 0
         y: 0
         width: parent.width
-//        height: parent.height
-//        anchors.bottom: layoutMix.top
-
 
         Button
         {
@@ -181,7 +174,6 @@ Window
         title: "Please choose a background color"
         onAccepted:
         {
-//            setValue("background_color", colorDialogBackground.color)
             signal_background_color_changed(colorDialogBackground.color)
         }
     }
@@ -192,7 +184,6 @@ Window
         title: "Please choose a font color"
         onAccepted:
         {
-//            setValue("font_color", colorDialogFont.color)
             signal_font_color_changed(colorDialogFont.color)
         }
     }

@@ -60,7 +60,6 @@ ApplicationWindow
         var alarm_object = component_alarm.createObject()
         alarm_object.signal_alarm_finished.connect(function(){showAlarmNotification(alarm_object.getTimerID())})
         list_of_alarms.push(alarm_object)
-        console.log("value_timer: " + value_timer)
         alarm_object.runAlarm(value_timer, "type", "message")
         list_of_alarms.sort((a, b) => { return a.getRemainingTime() - b.getRemainingTime(); });
     }
@@ -112,10 +111,7 @@ ApplicationWindow
 
     Component.onCompleted:
     {
-        //aplikacja uruchomiona
-        console.log("Aplikacja uruchomiona")
-
-alarm_list_object.visible = true
+        alarm_list_object.visible = true
 
         timeOnly = window_settings.getValue("timeOnly")
         border_option = window_settings.getValue("border")
@@ -125,18 +121,14 @@ alarm_list_object.visible = true
         timeLabel.color = window_settings.getValue("font_color")
         dateLabel.color = window_settings.getValue("font_color")
 
-        console.log("timeOnly: " + timeOnly)
-
         if (timeOnly === "true")
         {
-            console.log("timeOnly true: " + timeOnly)
             setMenuTimeOnly()
             menu.items[2].checked = false
             timeOnly = true
         }
         else
         {
-            console.log("timeOnly false: " + timeOnly)
             setMenuTimeAndDate()
             menu.items[2].checked = true
             timeOnly = false
@@ -201,7 +193,6 @@ alarm_list_object.visible = true
 
     function closeApp()
     {
-        console.log("Zamykam aplikacje")
         window_settings.setValue("posX", x)
         window_settings.setValue("posY", y)
 
@@ -212,14 +203,11 @@ alarm_list_object.visible = true
         window_settings.setValue("border", border_option)
         window_settings.setValue("onTop", onTop_option)
 
-        console.log("timeOnly: " + timeOnly)
-
         Qt.quit()
     }
 
     function showAlarmNotification(timerID)
     {
-        console.log(timerID)
         timerAlarmNotificationTimeLabel.start()
 //        for (var value of list_of_alarms)
 //        {
@@ -315,7 +303,6 @@ alarm_list_object.visible = true
 
             onTriggered:
             {
-                console.log("timeOnly: " + timeOnly)
                 if (timeOnly === "true")
                 {
                     mainWindow.setMenuTimeAndDate()
@@ -417,7 +404,6 @@ alarm_list_object.visible = true
                 var index = 0
                 for (var alarm of defaultAlarms)
                 {
-                    console.log(alarm)
                     var item = submenuAlarms.addItem(alarm)
                     item.id = "ID_"+alarm
                     item.triggered.connect(function(){runAlarmMenuItem(alarmsItems[__selectedIndex])})
@@ -435,15 +421,12 @@ alarm_list_object.visible = true
                 var unit = ""
                 for (var value of tmpArray)
                 {
-                    console.log(value)
                     if (isNaN(value) === false)
                     {
-                        console.log("number")
                         number = number.concat(value);
                     }
                     else
                     {
-                        console.log("unit")
                         unit = unit.concat(value);
                     }
                 }
@@ -489,10 +472,6 @@ alarm_list_object.visible = true
         {
             if (mouse.buttons == Qt.LeftButton)
             {
-                console.log("Mouse: X:Y: " + mouseX + ":" + mouseY)
-                console.log("Window: X:Y: " + mainWindow.x + ":" + mainWindow.y)
-                console.log(mapToGlobal(mouseX, mouseY))
-
                 var windowGeometry = mapToGlobal(mouseX, mouseY)
                 mainWindow.setGeometry(windowGeometry.x, windowGeometry.y , mainWindow.width, mainWindow.height)
             }
@@ -564,18 +543,6 @@ alarm_list_object.visible = true
                 titleLastUsedTimeOrDate = 0
             }
         }
-
-        console.log("timeOnly: " + timeOnly)
-        console.log("border_option: " + border_option)
-        console.log("onTop_option: " + onTop_option)
-
-//        console.log("list_of_alarms[0].isAlarmFinished(): " + list_of_alarms[0].isAlarmFinished())  //wywala blad dopoki nie doda sie alarmu. To jest normalne
-//        console.log("list_of_alarms[0].getTimerID(): " + list_of_alarms[0].getTimerID())
-//        console.log("list_of_alarms[1].getTimerID(): " + list_of_alarms[1].getTimerID())
-//        if (list_of_alarms[0].isAlarmFinished() === true)
-//        {
-//            list_of_alarms[0].destroy()
-//        }
     }
     Timer
     {

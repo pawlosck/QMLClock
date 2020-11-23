@@ -14,7 +14,6 @@ Item
 
         property int start_date_unix_timestamp: 0 //Data dodania alarmu uzywajac unix time. Od tego czasu liczy sie alarm
         property int stop_date_unix_timestamp: 0 //Data uruchomienia alarmu uzywajac unix time.
-//        property int timer_value_seconds: 0 // za ile ma sie wlaczyc alarm w sekundach
         property string message: "Default message"
         property string type_of_alarm: "Default" //rodzaj alarmu. Np alarm informujacy o telefonie, programie w tv, czy tez w radio
 
@@ -96,14 +95,6 @@ Item
         alarm.type_of_alarm = type_value
         alarm.message = message_value
 
-        console.log("runAlarm =============================================")
-//        console.log("type_value: " + type_value)
-//        console.log("message_value: " + message_value)
-        console.log("timer_value_sec: " + timer_value_sec)
-        console.log("alarm.start_date_unix_timestamp: " + alarm.start_date_unix_timestamp)
-        console.log("alarm.stop_date_unix_timestamp: " + alarm.stop_date_unix_timestamp)
-        console.log("=============================================")
-
         timerAlarmID.start()
     }
 
@@ -116,25 +107,13 @@ Item
         var milliseconds = alarm.timer_elapsed * 1000
         var data = new Date(milliseconds)
 
-        console.log("UNIX elapsed:" + alarm.timer_elapsed + " : " + alarm.timer_remaining)
-        console.log("Time:" + alarm.start_date_unix_timestamp + " : " + alarm.stop_date_unix_timestamp + " : " + currentDate_UnixTime)
-        console.log("Type:" + alarm.type_of_alarm + " Message: " + alarm.message)
-
         if(alarm.stop_date_unix_timestamp <= currentDate_UnixTime && alarm.alarm_finished !== true)
         {
-            console.log("Alarm doszedl do zera")
+            //Alarm doszedl do zera
 //            timerAlarmID.stop()
             alarm.alarm_finished = true
             signal_alarm_finished(getTimerID())
         }
-
-//        console.log("updateAlarm =============================================")
-////        console.log("timer_value_sec: " + timer_value_sec)
-////        console.log("type_value: " + type_value)
-////        console.log("message_value: " + message_value)
-//        console.log("alarm.start_date_unix_timestamp: " + alarm.start_date_unix_timestamp)
-//        console.log("alarm.stop_date_unix_timestamp: " + alarm.stop_date_unix_timestamp)
-//        console.log("=============================================")
     }
 
     function convertSecondsIntoDaysAndTime(seconds)
@@ -174,9 +153,6 @@ Item
     Component.onCompleted:
     {
         alarm.timerID = Date.now()
-
-        console.log("Obiekt utworzony")
-//        runAlarm(4, "type", "message")
     }
 
     Timer
