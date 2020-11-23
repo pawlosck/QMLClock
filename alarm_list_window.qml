@@ -153,6 +153,18 @@ Window
                             height: parent.height
                             maximumLength: 20
                             text: typeInfoString
+
+                            onTextChanged:
+                            {
+                                var index = 0
+                                for (var alarm of list_of_alarms)
+                                {
+                                    if (alarm.getTimerID() === listviewID.currentItem.getTimerID())
+                                    {
+                                        alarm.setTypeOfAlarm(text)
+                                    }
+                                }
+                            }
                         }
                     }
                     Rectangle
@@ -255,6 +267,8 @@ Window
                 }
 
                 modelID.setProperty(index, "remainingTime", alarm.convertSecondsIntoDaysAndTime(alarm.getRemainingTime()) )
+                modelID.setProperty(index, "typeAlarm", alarm.getTypeAlarm())
+                modelID.setProperty(index, "messageAlarm", alarm.getMessage() )
                 index++
             }
         }

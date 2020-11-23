@@ -86,7 +86,7 @@ Item
 
     function setTypeOfAlarm(type_of_alarm_value)
     {
-        type_of_alarm = type_of_alarm_value
+        alarm.type_of_alarm = type_of_alarm_value
     }
 
     function runAlarm(timer_value_sec, type_value, message_value)
