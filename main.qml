@@ -15,9 +15,12 @@ ApplicationWindow
     property var component_alarm: Qt.createComponent("alarm.qml")
     property var component_new_alarm: Qt.createComponent("new_alarm_window.qml")
     property var component_alarm_list: Qt.createComponent("alarm_list_window.qml")
+    property var component_day_time_widget: Qt.createComponent("day_time_widget.qml")
 
     property var new_alarm_object: component_new_alarm.createObject(mainWindow)
     property var alarm_list_object: component_alarm_list.createObject(mainWindow)
+    property var alarm_day_time_widget_object: component_day_time_widget.createObject(mainWindow)
+
 
     property var list_of_alarms: []
 
@@ -112,6 +115,7 @@ ApplicationWindow
     Component.onCompleted:
     {
 //        alarm_list_object.visible = true
+        alarm_day_time_widget_object.visible = true
 
         timeOnly = window_settings.getValue("timeOnly")
         border_option = window_settings.getValue("border")
