@@ -181,6 +181,18 @@ Window
                             width: parent.width
                             height: parent.height
                             text: messageInfoString
+
+                            onTextChanged:
+                            {
+                                var index = 0
+                                for (var alarm of list_of_alarms)
+                                {
+                                    if (alarm.getTimerID() === listviewID.currentItem.getTimerID())
+                                    {
+                                        alarm.setMessage(text)
+                                    }
+                                }
+                            }
                         }
                     }
                 }

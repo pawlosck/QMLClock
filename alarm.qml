@@ -81,7 +81,7 @@ Item
 
     function setMessage(message_value)
     {
-        message = message_value
+        alarm.message = message_value
     }
 
     function setTypeOfAlarm(type_of_alarm_value)
