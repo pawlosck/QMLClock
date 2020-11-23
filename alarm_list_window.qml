@@ -183,6 +183,7 @@ Window
                             id: messageInfoLabel
                             width: parent.width
                             height: parent.height
+                            wrapMode: TextEdit.Wrap
                             text: messageInfoString
 
                             onTextChanged:
