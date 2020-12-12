@@ -4,6 +4,7 @@ import QtQuick.Layouts 1.15
 import QtQuick 2.15
 import QtQml 2.15
 
+import "external" as CK
 
 //Sortowanie
 //https://www.w3schools.com/jsref/jsref_sort.asp
@@ -88,37 +89,77 @@ Window
             text: qsTr("Lista alarmow")
         }
 
+
+
         RowLayout
         {
-            Rectangle
+            ColumnLayout
             {
-                border.width: 1
-
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                Layout.minimumWidth: 50
-                Layout.maximumWidth: parent.width/2
-                Layout.minimumHeight: parent.height/2
-                ListView
+//                anchors.fill: parent
+                Layout.alignment: Qt.AlignTop
+                CK.MultiInfiniteListview
                 {
-                    id: listviewID
-                    spacing: 5
-                    clip: true
-                    anchors.fill: parent
+                    Layout.fillWidth: true
+                    Layout.fillHeight: false
+                    Layout.minimumWidth: 100
+                    Layout.maximumHeight: parent.height/2
+//                    Layout.maximumWidth: parent.width/2
+//                    Layout.minimumHeight: parent.height/2
+                    Layout.maximumWidth: 300
 
-//                    Layout.fillHeight: true
-//                    width: 200
+                    width: 100
+                    height: 42
+                    visible: true
 
-                    model: modelID
-                    delegate: delegatID
-
-                    MouseArea
+                    Component.onCompleted:
                     {
-                        anchors.fill: parent
-                        onClicked: setCurrentItem(mouseX, mouseY)
+                        setPosition(0, 0)
+                        setNumberOfVisibleElements(1)
+
+                        setValues(1, 0, 59, 2, '0')
+                        setValues(2, 0, 59, 2, '0')
+                        setValues(3, 0, 59, 2, '0')
                     }
                 }
+
+                Rectangle
+                {
+
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    Layout.minimumWidth: 100
+//                    Layout.maximumHeight: parent.height/2
+                    Layout.maximumWidth: 300
+                    Layout.minimumHeight: parent.height/2
+
+
+                    border.width: 1
+
+
+                    ListView
+                    {
+                        id: listviewID
+                        spacing: 5
+                        clip: true
+                        anchors.fill: parent
+
+                        Layout.fillHeight: true
+    //                    width: 200
+
+                        model: modelID
+                        delegate: delegatID
+
+                        MouseArea
+                        {
+                            anchors.fill: parent
+                            onClicked: setCurrentItem(mouseX, mouseY)
+                        }
+                    }
+                }
+
             }
+
+
             ColumnLayout
             {
                 ColumnLayout
