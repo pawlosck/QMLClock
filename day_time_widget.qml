@@ -4,8 +4,8 @@ import QtQuick.Controls 1.4
 import QtQuick.Layouts 1.15
 import QtQml 2.12
 
-//Item
-Window
+Item
+//Window
 {
     width: 100
     height: 60

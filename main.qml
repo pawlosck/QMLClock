@@ -115,7 +115,7 @@ ApplicationWindow
     Component.onCompleted:
     {
 //        alarm_list_object.visible = true
-        alarm_day_time_widget_object.visible = true
+        alarm_day_time_widget_object.visible = false
 
         timeOnly = window_settings.getValue("timeOnly")
         border_option = window_settings.getValue("border")
