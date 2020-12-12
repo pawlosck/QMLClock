@@ -6,5 +6,7 @@
         <file>qml/main.qml</file>
         <file>qml/new_alarm_window.qml</file>
         <file>qml/settings_window.qml</file>
+        <file>qml/external/infinite_listview.qml</file>
+        <file>qml/external/multi_infinite_listview.qml</file>
     </qresource>
 </RCC>
