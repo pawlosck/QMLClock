@@ -302,12 +302,12 @@ Window
         }
     }
 
-    Timer
-    {
-        id: timerUpdateListView
-        interval: 1000; running: true; repeat: true; triggeredOnStart: true
-        onTriggered: updateListView()
-    }
+//    Timer
+//    {
+//        id: timerUpdateListView
+//        interval: 1000; running: true; repeat: true; triggeredOnStart: true
+//        onTriggered: updateListView()
+//    }
     function updateListView()
     {
 

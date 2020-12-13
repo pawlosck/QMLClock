@@ -568,6 +568,8 @@ ApplicationWindow
                 titleLastUsedTimeOrDate = 0
             }
         }
+
+        alarm_list_object.updateListView()
     }
     Timer
     {
