@@ -64,7 +64,8 @@ ApplicationWindow
         alarm_object.signal_alarm_finished.connect(function(){showAlarmNotification(alarm_object.getTimerID())})
         list_of_alarms.push(alarm_object)
         alarm_object.runAlarm(value_timer, "type", "message")
-        list_of_alarms.sort((a, b) => { return a.getRemainingTime() - b.getRemainingTime(); });
+        list_of_alarms.sort((a, b) => { return a.getStoptDate() - b.getStoptDate(); });
+
     }
 
     function updateNumberOfAlarms()
