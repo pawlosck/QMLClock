@@ -8,5 +8,6 @@
         <file>qml/settings_window.qml</file>
         <file>qml/external/InfiniteListview.qml</file>
         <file>qml/external/MultiInfiniteListview.qml</file>
+        <file>audio/alarm.wav</file>
     </qresource>
 </RCC>

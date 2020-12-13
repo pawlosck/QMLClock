@@ -467,6 +467,17 @@ ApplicationWindow
             {
                 timeLabel.text = Qt.binding(() => czas_string)
                 timerAlarmNotificationTimeLabel.stop()  //Wylacz timer ktory wyswietla napis ALARM na labelce z godzina
+
+
+                numberOfAlarms = list_of_alarms.length
+                for (var alarm of list_of_alarms)
+                {
+                    var result = alarm.isAlarmFinished()
+                    if (result === true && alarm.wasPlayed() === true)
+                    {
+                        alarm.stopPlaying()
+                    }
+                }
             }
             else
             {

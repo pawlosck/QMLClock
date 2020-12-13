@@ -1,9 +1,19 @@
 import QtQuick 2.0
 import QtQml 2.15
+import QtMultimedia 5.15
 
 Item
 {
     signal signal_alarm_finished(int timerID_value)
+
+    Audio {
+        id: player_alarm
+        source: "qrc:/audio/alarm.wav" // Dziala, ale strasznie dlugo sie buduje aplikacja
+//        source: "https://upload.wikimedia.org/wikipedia/commons/b/bb/Test_ogg_mp3_48kbps.wav"
+        volume: 1.0
+
+        property var wasPlayed: false
+    }
 
     QtObject
     {
@@ -107,12 +117,15 @@ Item
         var milliseconds = alarm.timer_elapsed * 1000
         var data = new Date(milliseconds)
 
-        if(alarm.stop_date_unix_timestamp <= currentDate_UnixTime && alarm.alarm_finished !== true)
+        if(alarm.stop_date_unix_timestamp < currentDate_UnixTime && alarm.alarm_finished !== true)
         {
             //Alarm doszedl do zera
 //            timerAlarmID.stop()
             alarm.alarm_finished = true
             signal_alarm_finished(getTimerID())
+
+            player_alarm.play()
+            player_alarm.wasPlayed = true
         }
     }
 
@@ -145,6 +158,16 @@ Item
         }
 
         return outputFormat
+    }
+
+    function stopPlaying()
+    {
+        player_alarm.stop()
+    }
+
+    function wasPlayed()
+    {
+        return player_alarm.wasPlayed
     }
 
 

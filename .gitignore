@@ -71,3 +71,9 @@ Thumbs.db
 *.dll
 *.exe
 
+
+
+
+
+#My ignore
+audio/*
