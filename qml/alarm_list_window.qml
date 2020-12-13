@@ -95,16 +95,16 @@ Window
         {
             ColumnLayout
             {
-//                anchors.fill: parent
+                spacing: 2
                 Layout.alignment: Qt.AlignTop
                 CK.MultiInfiniteListview
                 {
+                    id: counter_set_time
+
                     Layout.fillWidth: true
                     Layout.fillHeight: false
                     Layout.minimumWidth: 100
                     Layout.maximumHeight: parent.height/2
-//                    Layout.maximumWidth: parent.width/2
-//                    Layout.minimumHeight: parent.height/2
                     Layout.maximumWidth: 300
 
                     width: 100
@@ -115,6 +115,9 @@ Window
                     {
                         setPosition(0, 0)
                         setNumberOfVisibleElements(1)
+                        setInternalBorderSize(0, 0)
+                        setBorderSize(1)
+                        setGradientColor(0, "transparent")
 
                         setValues(1, 0, 59, 2, '0')
                         setValues(2, 0, 59, 2, '0')
@@ -154,6 +157,22 @@ Window
                             anchors.fill: parent
                             onClicked: setCurrentItem(mouseX, mouseY)
                         }
+
+                        onCurrentIndexChanged:
+                        {
+                            if(currentIndex === -1)
+                            {
+                                counter_set_time.visible = true
+                                remainingInfoLabel.visible = false
+                                addNewAlarmButton.visible = true
+                            }
+                            else
+                            {
+                                counter_set_time.visible = false
+                                remainingInfoLabel.visible = true
+                                addNewAlarmButton.visible = false
+                            }
+                        }
                     }
                 }
 
@@ -177,6 +196,15 @@ Window
                         {
                             id: remainingInfoLabel
                             text: remainingInfoString
+                        }
+                        Button
+                        {
+                            id: addNewAlarmButton
+                            text: "New Alarm"
+                            visible: false
+                            height: 20
+                            width: parent.width
+                            clip: true
                         }
                     }
                     Rectangle
