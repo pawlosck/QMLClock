@@ -41,8 +41,20 @@ ApplicationWindow
     property int numberOfAlarms: 0          //Liczba wszystkich alarmow
     property int numberOfFinishedAlarms: 0  //Alarmy, ktore doszly do 0
 
+    property var blinking_background_running: false
+
 
     signal signal_alarm_started_menuitem(int value, string unit)  //Wybranie alarmu z menu Alarms
+
+    SequentialAnimation
+    {
+        id: blinking_background
+        loops: Animation.Infinite
+        alwaysRunToEnd: true
+        running: blinking_background_running
+        ColorAnimation { target: mainWindow; property: "color"; from: mainWindow.color; to: "red"; duration: 300 }
+        ColorAnimation { target: mainWindow; property: "color"; from: "red"; to: mainWindow.color; duration: 300 }
+    }
 
     onSignal_alarm_started_menuitem:
     {
@@ -62,10 +74,10 @@ ApplicationWindow
 
         var alarm_object = component_alarm.createObject()
         alarm_object.signal_alarm_finished.connect(function(){showAlarmNotification(alarm_object.getTimerID())})
+        alarm_object.signal_alarm_finished.connect(function(){blinking_background.running = true})
         list_of_alarms.push(alarm_object)
         alarm_object.runAlarm(value_timer, "type", "message")
         list_of_alarms.sort((a, b) => { return a.getStoptDate() - b.getStoptDate(); });
-
     }
 
     function updateNumberOfAlarms()
@@ -214,10 +226,6 @@ ApplicationWindow
     function showAlarmNotification(timerID)
     {
         timerAlarmNotificationTimeLabel.start()
-//        for (var value of list_of_alarms)
-//        {
-
-//        }
     }
 
     Timer
@@ -476,6 +484,7 @@ ApplicationWindow
                     if (result === true && alarm.wasPlayed() === true)
                     {
                         alarm.stopPlaying()
+                        blinking_background.running = false
                     }
                 }
             }
