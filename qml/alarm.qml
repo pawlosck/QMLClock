@@ -117,7 +117,7 @@ Item
         var milliseconds = alarm.timer_elapsed * 1000
         var data = new Date(milliseconds)
 
-        if(alarm.stop_date_unix_timestamp < currentDate_UnixTime && alarm.alarm_finished !== true)
+        if(alarm.stop_date_unix_timestamp <= currentDate_UnixTime && alarm.alarm_finished !== true)
         {
             //Alarm doszedl do zera
 //            timerAlarmID.stop()
