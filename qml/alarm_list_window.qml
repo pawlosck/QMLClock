@@ -358,5 +358,12 @@ Window
         var index = listviewID.indexAt(x, y)
         listviewID.currentIndex = index
     }
+
+    Component.onCompleted:
+    {
+        counter_set_time.visible = true
+        remainingInfoLabel.visible = false
+        addNewAlarmButton.visible = true
+    }
 }
 
