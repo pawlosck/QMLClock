@@ -290,6 +290,7 @@ Window
                             {
                                 if (alarm.getTimerID() === listviewID.currentItem.getTimerID())
                                 {
+                                    alarm.destroy()
                                     list_of_alarms.splice(index,1)
                                     modelID.remove(listviewID.currentIndex)
                                 }
