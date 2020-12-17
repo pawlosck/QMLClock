@@ -13,10 +13,8 @@ ApplicationWindow
     title: qsTr("QML Clock")
 
     property var component_alarm: Qt.createComponent("alarm.qml")
-    property var component_new_alarm: Qt.createComponent("new_alarm_window.qml")
     property var component_alarm_list: Qt.createComponent("alarm_list_window.qml")
 
-    property var new_alarm_object: component_new_alarm.createObject(mainWindow)
     property var alarm_list_object: component_alarm_list.createObject(mainWindow)
 
 
@@ -374,16 +372,6 @@ ApplicationWindow
         }
 
         MenuSeparator { }
-
-        MenuItem
-        {
-            id: add_new_alarm
-            text: "Add new alarm"
-            onTriggered:
-            {
-                new_alarm_object.show()
-            }
-        }
 
         MenuItem
         {
