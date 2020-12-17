@@ -2,7 +2,6 @@
     <qresource prefix="/">
         <file>qml/alarm_list_window.qml</file>
         <file>qml/alarm.qml</file>
-        <file>qml/day_time_widget.qml</file>
         <file>qml/main.qml</file>
         <file>qml/new_alarm_window.qml</file>
         <file>qml/settings_window.qml</file>
