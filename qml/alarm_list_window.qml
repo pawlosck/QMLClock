@@ -419,6 +419,7 @@ Window
         listviewID.currentIndex = -1
 
         addNewAlarmButton.visible = true
+        addNewAlarmButton.text = "Add new alarm"
         deleteAlarmButton.visible = true
         deleteAlarmButton.enabled = false
     }
