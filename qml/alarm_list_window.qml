@@ -164,13 +164,15 @@ Window
                             {
                                 counter_set_time.visible = true
                                 remainingInfoLabel.visible = false
-                                addNewAlarmButton.visible = true
+                                addNewAlarmButton.enabled = true
+                                deleteAlarmButton.enabled = false
                             }
                             else
                             {
                                 counter_set_time.visible = false
                                 remainingInfoLabel.visible = true
-                                addNewAlarmButton.visible = false
+                                addNewAlarmButton.enabled = true
+                                deleteAlarmButton.enabled = true
                             }
                         }
                     }
@@ -279,6 +281,7 @@ Window
 
                 Button
                 {
+                    id: deleteAlarmButton
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     Layout.minimumWidth: 20
@@ -369,7 +372,12 @@ Window
     {
         counter_set_time.visible = true
         remainingInfoLabel.visible = false
+
+        listviewID.currentIndex = -1
+
         addNewAlarmButton.visible = true
+        deleteAlarmButton.visible = true
+        deleteAlarmButton.enabled = false
     }
 }
 
