@@ -165,6 +165,7 @@ Window
                                 counter_set_time.visible = true
                                 remainingInfoLabel.visible = false
                                 addNewAlarmButton.enabled = true
+                                addNewAlarmButton.text = "Add new alarm"
                                 deleteAlarmButton.enabled = false
                             }
                             else
@@ -172,6 +173,7 @@ Window
                                 counter_set_time.visible = false
                                 remainingInfoLabel.visible = true
                                 addNewAlarmButton.enabled = true
+                                addNewAlarmButton.text = "New alarm"
                                 deleteAlarmButton.enabled = true
                             }
                         }
@@ -277,6 +279,47 @@ Window
                     text: "New Alarm"
                     visible: false
                     clip: true
+
+                    onClicked:
+                    {
+                        var hour = Number ( counter_set_time.getValue(1) )
+                        var minute = Number ( counter_set_time.getValue(2) )
+                        var second = Number ( counter_set_time.getValue(3) )
+
+                        var hour_seconds = hour * 60 * 60
+                        var minute_seconds = minute * 60
+                        var seconds = hour_seconds + minute_seconds + second
+
+                        if(listviewID.currentIndex === -1 && seconds > 0)
+                        {
+                            var alarm_object = component_alarm.createObject()
+                            alarm_object.signal_alarm_finished.connect(function(){showAlarmNotification(alarm_object.getTimerID())})
+                            alarm_object.signal_alarm_finished.connect(function(){blinking_background.running = true})
+                            list_of_alarms.push(alarm_object)
+                            alarm_object.runAlarm(seconds, typeInfoLabel.text, messageInfoLabel.text)
+                            list_of_alarms.sort((a, b) => { return a.getStoptDate() - b.getStoptDate(); });
+
+                            typeInfoLabel.clear()
+                            messageInfoLabel.clear()
+
+                            counter_set_time.setValue(1, 0)
+                            counter_set_time.setValue(2, 0)
+                            counter_set_time.setValue(3, 0)
+                        }
+                        else
+                        {
+                            counter_set_time.visible = true
+                            remainingInfoLabel.visible = true
+
+                            listviewID.currentIndex = -1
+
+                            addNewAlarmButton.visible = true
+                            deleteAlarmButton.visible = true
+                            deleteAlarmButton.enabled = false
+                        }
+
+
+                    }
                 }
 
                 Button
