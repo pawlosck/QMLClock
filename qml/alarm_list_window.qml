@@ -197,15 +197,6 @@ Window
                             id: remainingInfoLabel
                             text: remainingInfoString
                         }
-                        Button
-                        {
-                            id: addNewAlarmButton
-                            text: "New Alarm"
-                            visible: false
-                            height: 20
-                            width: parent.width
-                            clip: true
-                        }
                     }
                     Rectangle
                     {
@@ -272,6 +263,20 @@ Window
                         }
                     }
                 }
+
+                Button
+                {
+                    id: addNewAlarmButton
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    Layout.minimumWidth: 20
+                    Layout.minimumHeight: 20
+                    Layout.maximumHeight: 40
+                    text: "New Alarm"
+                    visible: false
+                    clip: true
+                }
+
                 Button
                 {
                     Layout.fillWidth: true
