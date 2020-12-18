@@ -1,6 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Window 2.15
-import QtQuick.Controls 1.4
+import QtQuick.Controls 2.15
+import QtQuick.Controls 1.4 as OldControls
 import QtQml 2.15
 
 //https://doc.qt.io/qt-5/qml-qtqml-date.html
@@ -252,10 +253,10 @@ ApplicationWindow
         closeApp()
     }
 
-    Menu
+    OldControls.Menu
     {
         id: menu
-        MenuItem
+        OldControls.MenuItem
         {
             id: border
             checkable: true
@@ -277,7 +278,7 @@ ApplicationWindow
                 }
             }
         }
-        MenuItem
+        OldControls.MenuItem
         {
             id: onTop
             checkable: true
@@ -301,7 +302,7 @@ ApplicationWindow
             }
         }
 
-        MenuItem
+        OldControls.MenuItem
         {
             id: date
             checkable: true
@@ -326,9 +327,9 @@ ApplicationWindow
             }
         }
 
-        MenuSeparator { }
+        OldControls.MenuSeparator { }
 
-        MenuItem
+        OldControls.MenuItem
         {
             id: settings
             checkable: false
@@ -347,7 +348,7 @@ ApplicationWindow
                 }
             }
         }
-        MenuItem
+        OldControls.MenuItem
         {
             id: settings_background_color
             checkable: false
@@ -359,7 +360,7 @@ ApplicationWindow
             }
         }
 
-        MenuItem
+        OldControls.MenuItem
         {
             id: settings_font_color
             checkable: false
@@ -371,9 +372,9 @@ ApplicationWindow
             }
         }
 
-        MenuSeparator { }
+        OldControls.MenuSeparator { }
 
-        MenuItem
+        OldControls.MenuItem
         {
             id: alarm_list
             text: "Show alarms"
@@ -383,7 +384,7 @@ ApplicationWindow
             }
         }
 
-        Menu
+        OldControls.Menu
         {
             id: submenuAlarms
             title: "Alarms"
@@ -433,8 +434,8 @@ ApplicationWindow
             }
         }
 
-        MenuSeparator { }
-        MenuItem
+        OldControls.MenuSeparator { }
+        OldControls.MenuItem
         {
             text: "Zamknij progrm"
             shortcut: "Ctrl+Q"
