@@ -7,5 +7,6 @@
         <file>qml/external/InfiniteListview.qml</file>
         <file>qml/external/MultiInfiniteListview.qml</file>
         <file>audio/alarm.wav</file>
+        <file>qml/alarm_list_tooltip.qml</file>
     </qresource>
 </RCC>

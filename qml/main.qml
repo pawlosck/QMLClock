@@ -15,9 +15,10 @@ ApplicationWindow
 
     property var component_alarm: Qt.createComponent("alarm.qml")
     property var component_alarm_list: Qt.createComponent("alarm_list_window.qml")
+    property var component_alarm_tooltip: Qt.createComponent("alarm_list_tooltip.qml")
 
     property var alarm_list_object: component_alarm_list.createObject(mainWindow)
-
+    property var alarm_list_tooltip_object: component_alarm_tooltip.createObject(mainWindow)
 
     property var list_of_alarms: []
 
@@ -124,6 +125,7 @@ ApplicationWindow
 
     Component.onCompleted:
     {
+        alarm_list_tooltip_object.visible = true
 //        alarm_list_object.visible = true
 
         timeOnly = window_settings.getValue("timeOnly")
